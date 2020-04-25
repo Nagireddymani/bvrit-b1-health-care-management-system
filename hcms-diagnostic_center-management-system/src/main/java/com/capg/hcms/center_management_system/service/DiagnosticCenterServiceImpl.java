@@ -2,12 +2,16 @@ package com.capg.hcms.center_management_system.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.capg.hcms.center_management_system.model.DiagnosticCenter;
 import com.capg.hcms.center_management_system.repository.IDiagnosticCenterRepository;
 
+@Service
 public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 
-
+    @Autowired
 	private IDiagnosticCenterRepository centerRepo;
 	
 	@Override

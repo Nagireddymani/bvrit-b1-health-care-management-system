@@ -2,12 +2,22 @@ package com.capg.hcms.center_management_system.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "center_info")
 public class DiagnosticCenter {
 
+	@Id
 	private String centerId;
 	private String centerName;
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "center")
 	private List<DiagnosticTest> testList;
+	@OneToMany(cascade = CascadeType.ALL,mappedBy = "center")
 	private List<Appointment> appointmentList;
 	
 	

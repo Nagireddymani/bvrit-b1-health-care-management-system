@@ -2,8 +2,18 @@ package com.capg.hcms.center_management_system.model;
 
 import java.math.BigInteger;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="user_info")
 public class User {
 
+	@Id
 	private String userId;
 	private String userName;
 	private String userPassword;
@@ -11,6 +21,10 @@ public class User {
 	private String userEmail;
 	private Integer age;
 	private String gender;
+	
+	@OneToOne
+	@JoinColumn(name = "appointmentId")
+	private Appointment appointment;
 	
 	public User(String userId, String userName, String userPassword, BigInteger contactNumber, String userEmail,
 			Integer age, String gender) {
@@ -26,6 +40,15 @@ public class User {
 
 	public User() {
 		super();
+	}
+
+	
+	public Appointment getAppointment() {
+		return appointment;
+	}
+
+	public void setAppointment(Appointment appointment) {
+		this.appointment = appointment;
 	}
 
 	public String getUserId() {

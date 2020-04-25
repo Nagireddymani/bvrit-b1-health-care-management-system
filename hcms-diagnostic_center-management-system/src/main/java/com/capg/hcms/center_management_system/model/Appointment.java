@@ -3,13 +3,35 @@ package com.capg.hcms.center_management_system.model;
 import java.math.BigInteger;
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+@Entity
+@Table(name = "appointment_info")
 public class Appointment {
 
+	@Id
 	private BigInteger appointmentId;
+	@DateTimeFormat(pattern = "yyyy/MM/ddThh:mm:ss")
 	private LocalDateTime dateTime;
 	private boolean approved;
+	
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment")
 	private User user;
+	
+	@OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment")
 	private DiagnosticTest test;
+	
+	@OneToOne
+	@JoinColumn(name = "centerId")
+	private DiagnosticCenter center;
+	
 	public Appointment() {
 		super();
 	}
