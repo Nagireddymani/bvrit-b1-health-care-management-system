@@ -6,10 +6,11 @@ import com.capg.hcms.appointment_management_system.model.Appointment;
 
 public interface IAppointmentMSService {
 	
+
 	public long makeAppointment(Appointment appointment);
 	public Appointment getAppointment(long appointmentId);
 	public List<Appointment> getAllAppointments();
-	
+    public Appointment updateAppointment(Appointment a);
 	
 	
 
