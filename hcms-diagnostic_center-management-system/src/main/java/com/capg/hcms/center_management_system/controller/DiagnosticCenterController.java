@@ -26,15 +26,15 @@ public class DiagnosticCenterController {
 	
 	
 	@GetMapping("/getall")
-	public List<DiagnosticCenter> getAllCenters()
+	public ResponseEntity<List<DiagnosticCenter>> getAllCenters()
 	{
-		return centerService.getAllCenters();
+		return new ResponseEntity<List<DiagnosticCenter>>(centerService.getAllCenters(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/get/id/{centerId}")
-	public DiagnosticCenter getCenter(@PathVariable String centerId)
+	public ResponseEntity<DiagnosticCenter> getCenter(@PathVariable String centerId)
 	{
-		return centerService.getCenter(centerId);
+		return new ResponseEntity<DiagnosticCenter>(centerService.getCenter(centerId),HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")

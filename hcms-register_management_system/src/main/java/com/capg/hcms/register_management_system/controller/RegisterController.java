@@ -3,6 +3,8 @@ package com.capg.hcms.register_management_system.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,21 +21,21 @@ public class RegisterController {
 	private IRegisterService registerService;
 	
 	@PostMapping("/register")
-	public User registerUser(@RequestBody User user) 
+	public ResponseEntity<User> registerUser(@RequestBody User user) 
 	{
-		return registerService.registerUser(user);
+		return new ResponseEntity<User>(registerService.registerUser(user),HttpStatus.OK);
 	}
 	
 	@GetMapping("/get/id/{userId}")
-	public User getUser(@PathVariable String userId)
+	public ResponseEntity<User> getUser(@PathVariable String userId)
 	{
-		return registerService.getUser(userId);
+		return new ResponseEntity<User>(registerService.getUser(userId),HttpStatus.OK);
 	}
 	
 	@GetMapping("/getall")
-	public List<User> getAllUsers()
+	public ResponseEntity<List<User>> getAllUsers()
 	{
-		return registerService.getAllUsers();
+		return new ResponseEntity<List<User>>(registerService.getAllUsers(),HttpStatus.OK);
 	}
 	
 }
