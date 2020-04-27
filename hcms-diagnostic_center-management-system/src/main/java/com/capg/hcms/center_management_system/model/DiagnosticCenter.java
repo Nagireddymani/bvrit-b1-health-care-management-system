@@ -1,9 +1,13 @@
 package com.capg.hcms.center_management_system.model;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -13,25 +17,31 @@ import javax.persistence.Table;
 public class DiagnosticCenter {
 
 	@Id
-	private String centerId;
+	private String centerId;	
 	private String centerName;
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "center")
-	private List<DiagnosticTest> testList;
-	@OneToMany(cascade = CascadeType.ALL,mappedBy = "center")
-	private List<Appointment> appointmentList;
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "center")
+//	private List<DiagnosticTest> testList;
+//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "center")
+//	private List<Appointment> appointmentList;
+	
+	@ElementCollection
+	private List<String> test;
+	@ElementCollection
+	private List<BigInteger> appointment;
 	
 	
 	public DiagnosticCenter() {
 		super();
 	}
 	
-	public DiagnosticCenter(String centerId, String centerName, List<DiagnosticTest> testList,
-			List<Appointment> appointmentList) {
+
+	public DiagnosticCenter(String centerId, String centerName, List<String> test,
+			List<BigInteger> appointment) {
 		super();
 		this.centerId = centerId;
 		this.centerName = centerName;
-		this.testList = testList;
-		this.appointmentList = appointmentList;
+		this.test = test;
+		this.appointment = appointment;
 	}
 
 	public String getCenterId() {
@@ -49,27 +59,30 @@ public class DiagnosticCenter {
 	public void setCenterName(String centerName) {
 		this.centerName = centerName;
 	}
-
-	public List<DiagnosticTest> getTestList() {
-		return testList;
+	
+	public List<String> getTest() {
+		return test;
 	}
 
-	public void setTestList(List<DiagnosticTest> testList) {
-		this.testList = testList;
+
+	public void setTest(List<String> test) {
+		this.test = test;
 	}
 
-	public List<Appointment> getAppointmentList() {
-		return appointmentList;
+
+	public List<BigInteger> getAppointment() {
+		return appointment;
 	}
 
-	public void setAppointmentList(List<Appointment> appointmentList) {
-		this.appointmentList = appointmentList;
+
+	public void setAppointment(List<BigInteger> appointment) {
+		this.appointment = appointment;
 	}
 
 	@Override
 	public String toString() {
-		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", testList=" + testList
-				+ ", appointmentList=" + appointmentList + "]";
+		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", testId=" + test
+				+ ", appointmentId=" + appointment + "]";
 	}
 	
 	
