@@ -6,4 +6,5 @@ import com.capg.hcms.center_management_system.model.DiagnosticCenter;
 
 public interface IDiagnosticCenterRepository extends JpaRepository<DiagnosticCenter, String>{
 
+	public DiagnosticCenter getByCenterName(String centerName);
 }

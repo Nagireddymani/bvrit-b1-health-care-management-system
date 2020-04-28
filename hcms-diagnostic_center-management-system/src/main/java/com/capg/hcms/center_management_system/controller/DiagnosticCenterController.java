@@ -3,6 +3,8 @@ package com.capg.hcms.center_management_system.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,22 +24,23 @@ public class DiagnosticCenterController {
 	@Autowired
 	private IDiagnosticCenterService centerService;
 	
+	
 	@GetMapping("/getall")
-	public List<DiagnosticCenter> getAllCenters()
+	public ResponseEntity<List<DiagnosticCenter>> getAllCenters()
 	{
-		return centerService.getAllCenters();
+		return new ResponseEntity<List<DiagnosticCenter>>(centerService.getAllCenters(),HttpStatus.OK);
 	}
 	
 	@GetMapping("/get/id/{centerId}")
-	public DiagnosticCenter getCenter(@PathVariable String centerId)
+	public ResponseEntity<DiagnosticCenter> getCenter(@PathVariable String centerId)
 	{
-		return centerService.getCenter(centerId);
+		return new ResponseEntity<DiagnosticCenter>(centerService.getCenter(centerId),HttpStatus.OK);
 	}
 	
 	@PostMapping("/add")
-	public DiagnosticCenter addCenter(@RequestBody DiagnosticCenter center)
+	public ResponseEntity<DiagnosticCenter> addCenter(@RequestBody DiagnosticCenter center)
 	{
-		return centerService.addCenter(center);
+		return new ResponseEntity<DiagnosticCenter>(centerService.addCenter(center),HttpStatus.OK); 
 	}
 	
 	@DeleteMapping("/delete")
@@ -47,9 +50,9 @@ public class DiagnosticCenterController {
 	}
 	
 	@PutMapping("/update")
-	public DiagnosticCenter updateCenter(@RequestBody DiagnosticCenter center)
+	public ResponseEntity<DiagnosticCenter> updateCenter(@RequestBody DiagnosticCenter center)
 	{
-		return centerService.updateCenter(center);
+		return new ResponseEntity<DiagnosticCenter>(centerService.updateCenter(center),HttpStatus.OK);
 	}
 	
 }
