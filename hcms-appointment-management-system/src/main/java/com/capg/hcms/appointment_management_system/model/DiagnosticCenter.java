@@ -2,11 +2,14 @@ package com.capg.hcms.appointment_management_system.model;
 
 import java.util.List;
 
+
 public class DiagnosticCenter {
 
 	private String centerName;
 	private String centerId;
+
 	private List<String> listOfTests;
+
 	private List<Long> appointmentList;
 	
 	public DiagnosticCenter() {

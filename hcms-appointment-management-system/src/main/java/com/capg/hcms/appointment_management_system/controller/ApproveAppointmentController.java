@@ -26,7 +26,7 @@ public class ApproveAppointmentController {
 	 
 		
 	
-	 @GetMapping(value="/getAppointment/{appointmentId}",produces="application/json")
+	     @GetMapping(value="/getAppointment/{appointmentId}",produces="application/json")
 	     public Appointment getAppointment(@PathVariable int appointment_id)
 	     {
 	    	 return appointmentMSService.getAppointment(appointment_id);
@@ -41,11 +41,19 @@ public class ApproveAppointmentController {
 	    
 	     
 	     @PutMapping("/approveAppointment")
-	     public Appointment updateAppoinment(@RequestBody Appointment appointment)
+	     public Appointment approveAppoinment(@RequestBody Appointment appointment)
 	     {
-	    	 Appointment a=appointmentMSService.updateAppointment(appointment);
+	    	 Appointment a=appointmentMSService.approveAppointment(appointment);
 	    	 return a;
 	     }
+	     
+			/*
+			 * public List<Appointment> approveAppointment(@PathVariable String centerId) {
+			 * 
+			 * DiagnosticCenter center=rt.getFor return
+			 * appointmentMSService.getAllAppointments(); }
+			 */
+	     
 	     
 	     
 	     

@@ -1,5 +1,8 @@
 package com.capg.hcms.appointment_management_system.model;
 
+
+
+
 public class User {
 
 	private String userId;

@@ -2,59 +2,74 @@ package com.capg.hcms.appointment_management_system.model;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 @Entity
-@Table(name = "Appointment")
+//@Table(name = "appointment_info")
 public class Appointment {
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "appointment_id")
-	private User user;
+
+	private String userId;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long appointmentId;
 
-	private DiagnosticTest test;
-	
+//	@OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment")
+//	private User user;
+
+//	@OneToOne(cascade = CascadeType.ALL,mappedBy = "appointment")
+//	private DiagnosticTest test;
+
+//	@OneToOne
+//	@JoinColumn(name = "centerId")
+//	private DiagnosticCenter center;
+
+	private String centerId;
+
+	private String testId;
 
 	@DateTimeFormat(pattern = "yyyy/MM/ddThh:mm:ss")
 	private LocalDateTime dateTime;
 
 	// private boolean approved=false;
-	private String appointmentStatus;
+	private boolean approved = false;
 
 	public Appointment() {
 		super();
 	}
 
-	public Appointment(User user, long appointmentId, DiagnosticTest test, LocalDateTime dateTime,
-			String appointmentStatus) {
+	public Appointment(User user, long appointmentId, String userId, /* DiagnosticTest test, */ LocalDateTime dateTime,
+			boolean approved, /* DiagnosticCenter center, */ String centerId, String testId) {
 		super();
-		this.user = user;
+		// this.user = user;
+		this.userId = userId;
 		this.appointmentId = appointmentId;
-		this.test = test;
+		// this.test = test;
+		this.centerId = centerId;
+		this.testId = testId;
 		this.dateTime = dateTime;
-		this.appointmentStatus = appointmentStatus;
+		this.approved = approved;
+		// this.center = center;
 	}
 
-	public User getUser() {
-		return user;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
+
+	/*
+	 * public User getUser() { return user; }
+	 * 
+	 * public void setUser(User user) { this.user = user; }
+	 */
 
 	public long getAppointmentId() {
 		return appointmentId;
@@ -64,12 +79,30 @@ public class Appointment {
 		this.appointmentId = appointmentId;
 	}
 
-	public DiagnosticTest getTest() {
-		return test;
+	/*
+	 * public DiagnosticCenter getCenter() { return center; }
+	 * 
+	 * public void setCenter(DiagnosticCenter center) { this.center = center; }
+	 * 
+	 * public DiagnosticTest getTest() { return test; }
+	 * 
+	 * public void setTest(DiagnosticTest test) { this.test = test; }
+	 */
+
+	public String getCenterId() {
+		return centerId;
 	}
 
-	public void setTest(DiagnosticTest test) {
-		this.test = test;
+	public void setCenterId(String centerId) {
+		this.centerId = centerId;
+	}
+
+	public String getTestId() {
+		return testId;
+	}
+
+	public void setTestId(String testId) {
+		this.testId = testId;
 	}
 
 	public LocalDateTime getDateTime() {
@@ -80,23 +113,18 @@ public class Appointment {
 		this.dateTime = dateTime;
 	}
 
-	/*
-	 * public boolean isApproved() { return approved; } public void
-	 * setApproved(boolean approved) { this.approved = approved; }
-	 */
-
-	public String getAppointmentStatus() {
-		return appointmentStatus;
+	public boolean isApproved() {
+		return approved;
 	}
 
-	public void setAppointmentStatus(String appointmentStatus) {
-		this.appointmentStatus = appointmentStatus;
+	public void setApproved(boolean approved) {
+		this.approved = approved;
 	}
 
 	@Override
 	public String toString() {
-		return "Appointment [user=" + user + ", appointmentId=" + appointmentId + ", test=" + test + ", dateTime="
-				+ dateTime + ", appointmentStatus=" + appointmentStatus + "]";
+		return "Appointment [userId=" + userId + ", appointmentId=" + appointmentId + ", centerId=" + centerId
+				+ ", testId=" + testId + ", dateTime=" + dateTime + ", approved=" + approved + "]";
 	}
 
 }
