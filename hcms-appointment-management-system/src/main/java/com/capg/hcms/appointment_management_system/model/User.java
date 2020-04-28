@@ -10,7 +10,7 @@ public class User {
 	private String emailId;
 	private int age;
 	private String gender;
-	
+
 	public User() {
 		super();
 	}
@@ -98,7 +98,5 @@ public class User {
 				+ contactNo + ", userRole=" + userRole + ", emailId=" + emailId + ", age=" + age + ", gender=" + gender
 				+ "]";
 	}
-	
-	
-	
+
 }

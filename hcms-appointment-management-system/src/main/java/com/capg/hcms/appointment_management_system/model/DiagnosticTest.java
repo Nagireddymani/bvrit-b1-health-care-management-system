@@ -1,6 +1,10 @@
 package com.capg.hcms.appointment_management_system.model;
 
+
+
+
 public class DiagnosticTest {
+
 
 	private String testId;
     private String testName;
