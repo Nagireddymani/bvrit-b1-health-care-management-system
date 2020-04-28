@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+
 import com.capg.hcms.appointment_management_system.model.Appointment;
 import com.capg.hcms.appointment_management_system.model.DiagnosticCenter;
 import com.capg.hcms.appointment_management_system.service.IAppointmentMSService;
@@ -27,10 +29,9 @@ public class AppointmentMSController {
 	@Autowired
 	RestTemplate resttemplate;
 
+	
 	@Autowired
 	IAppointmentMSService service;
-
-
 
 	@PostMapping("/add")
 	public String makeAppointment(@RequestBody Appointment appointment) {
@@ -41,13 +42,12 @@ public class AppointmentMSController {
 
 	@GetMapping("/id/{appointmentId}")
 	public Appointment getAppointment(@PathVariable long appointmentId) {
-	
-	
-				return service.getAppointment(appointmentId);
-		
-
-		
+		return service.getAppointment(appointmentId);
 	}
+
+	
+	
+
 
 	@GetMapping("/all")
 	public List<Appointment> getAllAppointment() {
