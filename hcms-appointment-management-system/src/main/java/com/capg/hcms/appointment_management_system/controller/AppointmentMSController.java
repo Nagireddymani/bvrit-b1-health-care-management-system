@@ -1,5 +1,6 @@
 package com.capg.hcms.appointment_management_system.controller;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.InputMismatchException;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.capg.hcms.appointment_management_system.model.Appointment;
-import com.capg.hcms.appointment_management_system.model.DiagnosticCenter;
+import com.capg.hcms.appointment_management_system.model.AppointmentList;
 import com.capg.hcms.appointment_management_system.service.IAppointmentMSService;
 
 import io.micrometer.core.ipc.http.HttpSender.Response;
@@ -27,36 +28,21 @@ import io.micrometer.core.ipc.http.HttpSender.Response;
 public class AppointmentMSController {
 
 	@Autowired
-	RestTemplate resttemplate;
-
-	
-	@Autowired
 	IAppointmentMSService service;
 
-	@PostMapping("/add")
-	public String makeAppointment(@RequestBody Appointment appointment) {
-
+	@PostMapping("/makeappointment")
+	public Appointment makeAppointment(@RequestBody Appointment appointment) {
 		return service.makeAppointment(appointment);
-
 	}
-
-	@GetMapping("/id/{appointmentId}")
-	public Appointment getAppointment(@PathVariable long appointmentId) {
+	
+	@GetMapping("/getappointment/{appointmentId}")
+	public Appointment getAppointment(@PathVariable BigInteger appointmentId) {
 		return service.getAppointment(appointmentId);
 	}
-
 	
-	
-
-
-	@GetMapping("/all")
-	public List<Appointment> getAllAppointment() {
+	@GetMapping("/getallappointments")
+	public AppointmentList getAllAppointment() {
 		return service.getAllAppointments();
 	}
-
-	@GetMapping("/centerid/{centerId}")
-	public List<Appointment> findByCenter(@PathVariable String centerId) {
-		return service.findByCenter(centerId);
-	}
-
+	
 }

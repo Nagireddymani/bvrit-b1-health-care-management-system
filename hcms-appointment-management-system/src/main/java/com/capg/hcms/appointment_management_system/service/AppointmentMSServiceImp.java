@@ -1,16 +1,21 @@
 package com.capg.hcms.appointment_management_system.service;
 
+import java.math.BigInteger;
 import java.util.List;
 
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
-import com.capg.hcms.appointment_management_system.dao.IAppointmentMSRepo;
+import com.capg.hcms.appointment_management_system.exceptions.AppointmentAlreadyApprovedException;
 import com.capg.hcms.appointment_management_system.exceptions.AppointmentNotFoundException;
 import com.capg.hcms.appointment_management_system.model.Appointment;
+import com.capg.hcms.appointment_management_system.model.AppointmentList;
+import com.capg.hcms.appointment_management_system.repository.IAppointmentMSRepo;
 
 @Service
 public class AppointmentMSServiceImp implements IAppointmentMSService {
@@ -19,50 +24,42 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 	IAppointmentMSRepo appointmentRepo;
 
 	@Override
-	public String makeAppointment(Appointment appointment) {
-		appointmentRepo.save(appointment);
-
-		return "Your appoinment is booked with Appointment ID:" + appointment.getAppointmentId()
-				+ "Please wait for approval!";
+	public Appointment makeAppointment(Appointment appointment) {
+		if(appointmentRepo.getAppointmentByDateTime(appointment.getDateTime())!=null)
+			throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED);
+		System.out.println(appointment);
+		return appointmentRepo.save(appointment); 	
 	}
-
+	
 	@Override
-	@Transactional
-	public Appointment getAppointment(long appointmentId) {
+	public Appointment getAppointment(BigInteger appointmentId) {
 
 		if (!appointmentRepo.existsById(appointmentId)) {
 			throw new AppointmentNotFoundException("Appointment with id " + appointmentId + "not found");
 		}
-
 		return appointmentRepo.getOne(appointmentId);
 	}
 
 	@Override
-	@Transactional
-	public List<Appointment> getAllAppointments() {
-
-		
-		return appointmentRepo.findAll();
-		
+	public AppointmentList getAllAppointments() {
+		return new AppointmentList(appointmentRepo.findAll());
 	}
 
 	@Override
-	public Appointment approveAppointment(Appointment a) {
-		 Appointment ud=appointmentRepo.findById(a.getAppointmentId()).get();
- 		if(ud!=null)
+	public Appointment approveAppointment(Appointment appointment,boolean status) {
+	
+ 		if(appointment.isApproved())
  		{
- 			ud.setApproved(a.isApproved());
- 			ud.setDateTime(a.getDateTime());
+ 		  throw new AppointmentAlreadyApprovedException("Appointment with Id :"+appointment.getAppointmentId()+" is Already Approved");
  		}
- 		return appointmentRepo.save(ud);
-
+		appointment.setApproved(status);
+ 		return appointmentRepo.save(appointment);
 	}
 
 	@Override
-	@Transactional
-	public List<Appointment> findByCenter(String centerId) {
-
-		return appointmentRepo.findByCenter(centerId);
+	public Appointment updateAppointment(Appointment appointment) {
+		return null;
 	}
+
 
 }

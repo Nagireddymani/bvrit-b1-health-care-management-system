@@ -1,5 +1,6 @@
 package com.capg.hcms.appointment_management_system.controller;
 
+import java.math.BigInteger;
 import java.util.List;
 
 //import org.aspectj.weaver.ast.Test;
@@ -14,50 +15,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.capg.hcms.appointment_management_system.model.Appointment;
+import com.capg.hcms.appointment_management_system.model.AppointmentList;
+import com.capg.hcms.appointment_management_system.repository.IAppointmentMSRepo;
 import com.capg.hcms.appointment_management_system.service.IAppointmentMSService;
 
 
 @RestController
 @RequestMapping("/admin")
 public class ApproveAppointmentController {
-	
-	 @Autowired
-	 IAppointmentMSService appointmentMSService;
-	 
-		
-	
-	     @GetMapping(value="/getAppointment/{appointmentId}",produces="application/json")
-	     public Appointment getAppointment(@PathVariable int appointment_id)
+	  
+	     @Autowired
+	     IAppointmentMSService service;
+	 		
+	     @GetMapping("/getAppointment/{appointmentId}")
+	     public Appointment getAppointment(@PathVariable BigInteger appointmentId)
 	     {
-	    	 return appointmentMSService.getAppointment(appointment_id);
+	    	 return service.getAppointment(appointmentId);
 	     }
 	     
 
-	     @GetMapping(value="/getAllAppointments",produces="application/json")
-	     public List<Appointment> getAllAppointment()
+	     @GetMapping("/getallappointments")
+	     public AppointmentList getAllAppointment()
 	     {
-	    	 return appointmentMSService.getAllAppointments();
-	     }
-	    
-	     
-	     @PutMapping("/approveAppointment")
-	     public Appointment approveAppoinment(@RequestBody Appointment appointment)
-	     {
-	    	 Appointment a=appointmentMSService.approveAppointment(appointment);
-	    	 return a;
+	    	 return service.getAllAppointments();
 	     }
 	     
+	     @PutMapping("/approveAppointment/{appointmentId}/{status}")
+	     public Appointment approveAppoinment(@PathVariable BigInteger appointmentId,@PathVariable boolean status)
+	     {
+	    	 Appointment appointment=service.getAppointment(appointmentId);	  
+	    	 return service.approveAppointment(appointment, status);
+	     }
 			/*
 			 * public List<Appointment> approveAppointment(@PathVariable String centerId) {
 			 * 
 			 * DiagnosticCenter center=rt.getFor return
 			 * appointmentMSService.getAllAppointments(); }
 			 */
-	     
-	     
-	     
-	     
-		
-			    
-
 }

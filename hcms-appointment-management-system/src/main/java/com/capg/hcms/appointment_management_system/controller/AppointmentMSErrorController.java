@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capg.hcms.appointment_management_system.exceptions.AppointmentAlreadyApprovedException;
 import com.capg.hcms.appointment_management_system.exceptions.AppointmentNotFoundException;
 
 @ControllerAdvice
@@ -24,5 +25,10 @@ public class AppointmentMSErrorController {
 		
 	}
 	
+	@ExceptionHandler(AppointmentAlreadyApprovedException.class)
+	@ResponseStatus(value = HttpStatus.ALREADY_REPORTED, reason = "Appointment Already Approved")
+	public void handleAppointmentAlreadyApprovedException() {
+		
+	}
 
 }

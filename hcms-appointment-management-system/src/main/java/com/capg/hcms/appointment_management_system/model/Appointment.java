@@ -1,64 +1,61 @@
 package com.capg.hcms.appointment_management_system.model;
 
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
-
+@Table(name = "appointment_info")
 public class Appointment {
 
 	private String userId;
-
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private long appointmentId;
-
-	private String centerId;
-
+	private BigInteger appointmentId;
 	private String testId;
-
 	@DateTimeFormat(pattern = "yyyy/MM/ddThh:mm")
 	private LocalDateTime dateTime;
-
-
 	private boolean approved = false;
+
+	public Appointment(String userId, BigInteger appointmentId, String testId, LocalDateTime dateTime,
+			boolean approved) {
+		super();
+		this.userId = userId;
+		this.appointmentId = appointmentId;
+		this.testId = testId;
+		this.dateTime = dateTime;
+		this.approved = approved;
+	}
+
+
+	public Appointment() {
+		super();
+		
+	}
 
 
 	public String getUserId() {
 		return userId;
 	}
 
-
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
 
-
-	public long getAppointmentId() {
+	public BigInteger getAppointmentId() {
 		return appointmentId;
 	}
 
-
-	public void setAppointmentId(long appointmentId) {
+	public void setAppointmentId(BigInteger appointmentId) {
 		this.appointmentId = appointmentId;
 	}
-
-
-	public String getCenterId() {
-		return centerId;
-	}
-
-
-	public void setCenterId(String centerId) {
-		this.centerId = centerId;
-	}
-
 
 	public String getTestId() {
 		return testId;
@@ -84,33 +81,17 @@ public class Appointment {
 		return approved;
 	}
 
-
 	public void setApproved(boolean approved) {
 		this.approved = approved;
 	}
 
 
-	public Appointment(String userId, long appointmentId, String centerId, String testId, LocalDateTime dateTime,
-			boolean approved) {
-		super();
-		this.userId = userId;
-		this.appointmentId = appointmentId;
-		this.centerId = centerId;
-		this.testId = testId;
-		this.dateTime = dateTime;
-		this.approved = approved;
-	}
-
-
-	public Appointment() {
-		super();
-		
+	@Override
+	public String toString() {
+		return "Appointment [userId=" + userId + ", appointmentId=" + appointmentId 
+				+ ", testId=" + testId + ", dateTime=" + dateTime + ", approved=" + approved + "]";
 	}
 
 	
-
-
-	
-
 
 }
