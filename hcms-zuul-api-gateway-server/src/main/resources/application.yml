@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: api-gateway-server
+ 
+server:
+  port: 8321
+  
+zuul:
+  routes:
+    health-care-ms:
+      path: /hcms/**
+      service-id: health-care-ms 
+      strip-prefix: false
+      
