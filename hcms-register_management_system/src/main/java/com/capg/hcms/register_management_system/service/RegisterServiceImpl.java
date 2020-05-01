@@ -11,6 +11,7 @@ import com.capg.hcms.register_management_system.exception.EmailAlreadyExistExcep
 import com.capg.hcms.register_management_system.exception.UserNameAlreadyExistException;
 import com.capg.hcms.register_management_system.exception.UserNotFoundException;
 import com.capg.hcms.register_management_system.model.User;
+import com.capg.hcms.register_management_system.model.UserList;
 import com.capg.hcms.register_management_system.repository.IRegisterRepository;
 
 @Service
@@ -40,7 +41,7 @@ public class RegisterServiceImpl implements IRegisterService{
 	}
 
 	@Override
-	public List<User> getAllUsers() {
-		return registerRepo.findAll();
+	public UserList getAllUsers() {
+		return new UserList(registerRepo.findAll());
 	}
 }

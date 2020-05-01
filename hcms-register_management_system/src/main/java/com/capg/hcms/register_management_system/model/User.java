@@ -16,22 +16,36 @@ public class User {
 	private String userPassword;
 	private BigInteger contactNumber;
 	private String userEmail;
+	private String userRole="USER";
 	private Integer age;
 	private String gender;
+	
 	public User() {
 		super();
 	}
+	
 	public User(String userId, String userName, String userPassword, BigInteger contactNumber, String userEmail,
-			Integer age, String gender) {
+			String userRole, Integer age, String gender) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
 		this.userPassword = userPassword;
 		this.contactNumber = contactNumber;
 		this.userEmail = userEmail;
+		this.userRole = userRole;
 		this.age = age;
 		this.gender = gender;
 	}
+    
+	
+	public String getUserRole() {
+		return userRole;
+	}
+
+	public void setUserRole(String userRole) {
+		this.userRole = userRole;
+	}
+
 	public String getUserId() {
 		return userId;
 	}
@@ -74,12 +88,14 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword
-				+ ", contactNumber=" + contactNumber + ", userEmail=" + userEmail + ", age=" + age + ", gender="
-				+ gender + "]";
+				+ ", contactNumber=" + contactNumber + ", userEmail=" + userEmail + ", userRole=" + userRole + ", age="
+				+ age + ", gender=" + gender + "]";
 	}
+	
 	
 	
 }

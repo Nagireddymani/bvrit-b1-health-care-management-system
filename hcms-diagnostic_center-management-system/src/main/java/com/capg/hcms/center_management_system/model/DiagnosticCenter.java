@@ -19,15 +19,10 @@ public class DiagnosticCenter {
 	@Id
 	private String centerId;	
 	private String centerName;
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "center")
-//	private List<DiagnosticTest> testList;
-//	@OneToMany(cascade = CascadeType.ALL,mappedBy = "center")
-//	private List<Appointment> appointmentList;
-	
 	@ElementCollection
-	private List<String> test;
+	private List<String> tests;
 	@ElementCollection
-	private List<BigInteger> appointment;
+	private List<BigInteger> appointments;
 	
 	
 	public DiagnosticCenter() {
@@ -35,13 +30,13 @@ public class DiagnosticCenter {
 	}
 	
 
-	public DiagnosticCenter(String centerId, String centerName, List<String> test,
-			List<BigInteger> appointment) {
+	public DiagnosticCenter(String centerId, String centerName, List<String> tests,
+			List<BigInteger> appointments) {
 		super();
 		this.centerId = centerId;
 		this.centerName = centerName;
-		this.test = test;
-		this.appointment = appointment;
+		this.tests = tests;
+		this.appointments = appointments;
 	}
 
 	public String getCenterId() {
@@ -60,29 +55,29 @@ public class DiagnosticCenter {
 		this.centerName = centerName;
 	}
 	
-	public List<String> getTest() {
-		return test;
+	public List<String> getTests() {
+		return tests;
 	}
 
 
-	public void setTest(List<String> test) {
-		this.test = test;
+	public void setTests(List<String> tests) {
+		this.tests = tests;
 	}
 
 
-	public List<BigInteger> getAppointment() {
-		return appointment;
+	public List<BigInteger> getAppointments() {
+		return appointments;
 	}
 
 
 	public void setAppointment(List<BigInteger> appointment) {
-		this.appointment = appointment;
+		this.appointments = appointments;
 	}
 
 	@Override
 	public String toString() {
-		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", testId=" + test
-				+ ", appointmentId=" + appointment + "]";
+		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", testId=" + tests
+				+ ", appointmentId=" + appointments + "]";
 	}
 	
 	
