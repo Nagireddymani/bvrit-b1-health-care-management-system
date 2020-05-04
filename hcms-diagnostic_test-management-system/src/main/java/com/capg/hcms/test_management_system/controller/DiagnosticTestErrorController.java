@@ -15,7 +15,7 @@ import com.capg.hcms.test_management_system.exception.TestNotFoundException;
 public class DiagnosticTestErrorController {
 	
 	@ExceptionHandler(TestNotFoundException.class)
-	@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Test with this name Not Found" , code = HttpStatus.NOT_FOUND)
+	@ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "Test Not Found" , code = HttpStatus.NOT_FOUND)
 	public void handleTestNotFoundException() {
 		
 	}
@@ -31,6 +31,4 @@ public class DiagnosticTestErrorController {
 	public void handleListisEmptyException() {
 		
 	}
-	
-
 }

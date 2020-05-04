@@ -2,6 +2,13 @@ package com.capg.hcms.test_management_system.model;
 
 import java.util.List;
 
+/*******************************************************************************************************************************
+-Author                   :     
+-Created/Modified Date    :     
+-Description              :    
+
+*******************************************************************************************************************************/
+
 public class DiagnosticTestList {
 
 	private List<DiagnosticTest> testList;
@@ -10,6 +17,7 @@ public class DiagnosticTestList {
 	{
 		
 	}
+	
 	public DiagnosticTestList(List<DiagnosticTest> testList) {
 		super();
 		this.testList = testList;
@@ -26,8 +34,5 @@ public class DiagnosticTestList {
 	public String toString() {
 		return "DiagnosticTestList [testList=" + testList + "]";
 	}
-	
-	
-	
 	
 }
