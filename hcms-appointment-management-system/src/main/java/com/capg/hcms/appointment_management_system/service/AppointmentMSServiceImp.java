@@ -61,5 +61,17 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 		return null;
 	}
 
+	@Override
+	public boolean removeAppointmentById(BigInteger appointmentId) {
+		appointmentRepo.deleteById(appointmentId);
+		return true;
+	}
+
+	@Override
+	public boolean removeAllAppointments() {
+		appointmentRepo.deleteAll();
+		return true;
+	}
+
 
 }

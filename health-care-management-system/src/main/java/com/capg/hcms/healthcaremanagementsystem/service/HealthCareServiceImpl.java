@@ -3,6 +3,7 @@ package com.capg.hcms.healthcaremanagementsystem.service;
 import java.math.BigInteger;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,74 +28,179 @@ public class HealthCareServiceImpl implements IHealthCareService{
 	
 	@Override
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
+	
 		return restTemplate.postForObject("http://diagnostic-center-ms/center/addcenter",center,DiagnosticCenter.class);
+	
 	}
 
 	@Override
-	public boolean removeCenter(DiagnosticCenter center) {
-		System.out.println("inhealthcareService");
-		restTemplate.delete("http://diagnostic-center-ms/center/deletecenter/"+center.getCenterId());
+	public boolean removeCenter(String centerId) {
+		
+		DiagnosticCenter center=getCenterById(centerId);
+		
+		List<String> tests=center.getTests();
+		List<BigInteger> appointments=center.getAppointments();
+		
+		for(String testId:tests)
+		{
+			removeTestById(testId);
+		}
+		for(BigInteger appointmentId:appointments)
+		{
+			removeAppointmentById(appointmentId);
+		}
+				
+		restTemplate.delete("http://diagnostic-center-ms/center/removecenter/center-id/"+centerId);
 		return true;
 	}
-
+ 
 	@Override
 	public DiagnosticTest addTest(String centerId,DiagnosticTest test) throws RestClientException,URISyntaxException {
-	    DiagnosticTest newtest=restTemplate.postForObject("http://diagnostic-test-ms/test/addtest", test, DiagnosticTest.class);
-		restTemplate.put(new URI("http://diagnostic-center-ms/center/assign/"+centerId+"/testId/"+newtest.getTestId()),null);
+	    
+		DiagnosticTest newtest=restTemplate.postForObject("http://diagnostic-test-ms/test/addtest", test, DiagnosticTest.class);
+		
+		restTemplate.put(new URI("http://diagnostic-center-ms/center/assign-testid/"+centerId+"/test-id/"+newtest.getTestId()),null);
+		
 		return newtest;
 	}
 	
 	@Override
-	public boolean removeTest(String centerId,DiagnosticTest test) throws RestClientException, URISyntaxException {
-		restTemplate.delete("http://diagnostic-test-ms/test/removetest/testId/"+test.getTestId());
-		restTemplate.put(new URI("http://diagnostic-center-ms/center/removeId/"+centerId+"/testId/"+test.getTestId()), null);
+	public boolean removeTest(String centerId,String testId) throws RestClientException, URISyntaxException {
+		
+		restTemplate.delete("http://diagnostic-test-ms/test/removetest/test-id/"+testId);
+		
+		restTemplate.put(new URI("http://diagnostic-center-ms/center/remove-testid/"+centerId+"/test-id/"+testId), null);
+		
 		return true;
 	}
 
 	@Override
 	public Appointment makeAppointment(String centerId,Appointment appointment) throws RestClientException, URISyntaxException {
+		
 		Appointment newappointment=restTemplate.postForObject("http://appointment-ms/appointment/makeappointment",appointment,Appointment.class);
-		System.out.println(newappointment);
-		restTemplate.put(new URI("http://diagnostic-center-ms/center/assign/"+centerId+"/appointmentId/"+newappointment.getAppointmentId()),null);
+
+		restTemplate.put(new URI("http://diagnostic-center-ms/center/assign-appointmentid/"+centerId+"/appointment-id/"+newappointment.getAppointmentId()),null);
+
 		return newappointment;
 	}
 
 	@Override
 	public Appointment getAppointment(BigInteger appointmentId) {
+     
 		return restTemplate.getForObject("http://appointment-ms/appointment/getappointment/"+appointmentId, Appointment.class);
+	
+	}
+    
+	@Override
+	public User addUser(User user) {
+		
+		return  restTemplate.postForObject("http://register-ms/register/adduser", user, User.class);
+	
 	}
 
 	@Override
 	public DiagnosticCenterList getAllCenters() {
+		
 		return restTemplate.getForObject("http://diagnostic-center-ms/center/getallcenters",DiagnosticCenterList.class);
-    }
+    
+	}
 
 	@Override
 	public DiagnosticTestList getAllTests() {
-		 return restTemplate.getForObject("http://diagnostic-test-ms/test/getalltest",DiagnosticTestList.class);
+		
+		return restTemplate.getForObject("http://diagnostic-test-ms/test/getalltests",DiagnosticTestList.class);
+	
 	}
 
 	@Override
 	public AppointmentList getAllAppointments() {
-	     return restTemplate.getForObject("http://appointment-ms/appointment/getallappointments",AppointmentList.class);
-	}
-
-	@Override
-	public User addUser(User user) {
-		return  restTemplate.postForObject("http://register-ms/register/adduser", user, User.class);
+	    
+		return restTemplate.getForObject("http://appointment-ms/appointment/getallappointments",AppointmentList.class);
+	
 	}
 
 	@Override
 	public UserList getAllUsers() {
+		
 		return restTemplate.getForObject("http://register-ms/register/getallusers",UserList.class);
 		
 	}
 
 	@Override
 	public Appointment approvementAppointment(BigInteger appointmentId, boolean status) {
+		
 		restTemplate.put("http://appointment-ms/admin/approveAppointment/"+appointmentId+"/"+status,null );
+		
 		return getAppointment(appointmentId);
 		//return restTemplate.getForObject("http://localhost:8203/appointment/getappointment/"+appointmentId, Appointment.class);
+	}
+	
+	
+
+	@Override
+	public DiagnosticTestList getAllTestsByCenterId(String centerId) {
+  
+		DiagnosticCenter center=getCenterById(centerId);
+	    
+		List<String> tests=center.getTests();
+	    List<DiagnosticTest> testList=new ArrayList<DiagnosticTest>();
+	 
+	    for(String testId:tests)
+	    {
+	    	testList.add(getTestById(testId));
+	    }
+	    
+	    DiagnosticTestList diagnosticTestlist=new DiagnosticTestList(testList);
+		
+	    return diagnosticTestlist;
+	}
+
+	@Override
+	public DiagnosticCenter getCenterById(String centerId) {
+		
+		return restTemplate.getForObject("http://diagnostic-center-ms/center/getcenter/center-id/"+centerId,DiagnosticCenter.class);
+	
+	}
+
+	@Override
+	public DiagnosticTest getTestById(String testId) {
+		
+		return restTemplate.getForObject("http://diagnostic-test-ms/test/gettest/test-id/"+testId, DiagnosticTest.class);
+	
+	}
+
+	@Override
+	public AppointmentList getAllAppointmentByCenterId(String centerId) {
+		
+		DiagnosticCenter center=getCenterById(centerId);
+		
+		List<BigInteger> appointments=center.getAppointments();
+		List<Appointment> appointmentList=new ArrayList<Appointment>();
+		
+		for(BigInteger appointmentId:appointments)
+		{
+			appointmentList.add(getAppointment(appointmentId));
+		}
+		
+		AppointmentList newAppointmentList=new AppointmentList(appointmentList);
+		
+		return newAppointmentList;
+	}
+
+	@Override
+	public boolean removeTestById(String testId) { 
+	    
+		restTemplate.delete("http://diagnostic-test-ms/test/removetest/test-id/"+testId);
+	    
+		return true;
+	}
+
+	@Override
+	public boolean removeAppointmentById(BigInteger appointmentId) {
+	    
+		restTemplate.delete("http://appointment-ms/appointment/removeappointment-centerid/"+appointmentId);
+		
+		return true;
 	}
 		
 }

@@ -1,7 +1,7 @@
 package com.capg.hcms.center_management_system.controller;
 
 import java.math.BigInteger;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +19,13 @@ import com.capg.hcms.center_management_system.model.DiagnosticCenter;
 import com.capg.hcms.center_management_system.model.DiagnosticCenterList;
 import com.capg.hcms.center_management_system.service.IDiagnosticCenterService;
 
+/*******************************************************************************************************************************
+-Author                   :     N.Mani Kanta Reddy
+-Created/Modified Date    :     01-05-2020
+-Description              :     DiagnosticCenterController Class for accessing DiagnosticCenter Management System services
+
+*******************************************************************************************************************************/
+
 @RestController
 @RequestMapping("/center")
 public class DiagnosticCenterController {
@@ -27,57 +34,57 @@ public class DiagnosticCenterController {
 	private IDiagnosticCenterService centerService;
 	
 	@GetMapping("/getallcenters")
-	public DiagnosticCenterList getAllCenters()
+	public ResponseEntity<DiagnosticCenterList> getAllCenters()
 	{
-		return new  DiagnosticCenterList(centerService.getAllCenters());
+		DiagnosticCenterList centerList=centerService.getAllCenters();
+		if(centerList==null)
+	    	return new ResponseEntity<DiagnosticCenterList>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<DiagnosticCenterList>(centerList,HttpStatus.OK);
+			
 	}
-	
+
 	@GetMapping("/getcenter/center-id/{centerId}")
-	public DiagnosticCenter getCenter(@PathVariable String centerId)
+	public ResponseEntity<DiagnosticCenter> getCenter(@PathVariable String centerId)
 	{
-		return centerService.getCenter(centerId);
+		return new ResponseEntity<DiagnosticCenter>(centerService.getCenterById(centerId),HttpStatus.FOUND);
 	}
 	
 	@PostMapping("/addcenter")
 	public ResponseEntity<DiagnosticCenter> addCenter(@RequestBody DiagnosticCenter center)
 	{
-		return new ResponseEntity<DiagnosticCenter>(centerService.addCenter(center),HttpStatus.OK); 
+		return new ResponseEntity<DiagnosticCenter>(centerService.addCenter(center),HttpStatus.CREATED); 
 	}
 	
-	@DeleteMapping("/deletecenter/{centerId}")
-	public boolean removeCenter(@PathVariable String centerId)
+	@DeleteMapping("/removecenter/center-id/{centerId}")
+	public String removeCenter(@PathVariable String centerId)
 	{
-//		if(centerService.removeCenter(center))
-//		      return "Center removed Successfully";
-//		else 
-//			  return "";
-		
-		DiagnosticCenter center=getCenter(centerId);
-		return centerService.removeCenter(center);
-		
+		ResponseEntity<DiagnosticCenter> center=getCenter(centerId);
+		if(centerService.removeCenter(center.getBody()));
+		     return "Center Deleted Successfully";
 	}
 	
-	@PutMapping("/updatecenter")
-	public ResponseEntity<DiagnosticCenter> updateCenter(@RequestBody DiagnosticCenter center)
+	@PutMapping("/assign-testid/{centerId}/test-id/{testId}")
+	public DiagnosticCenter assignTestId(@PathVariable String centerId,@PathVariable String testId)
 	{
-		return new ResponseEntity<DiagnosticCenter>(centerService.updateCenter(center),HttpStatus.OK);
+		return centerService.assignTestId(centerId, testId);
 	}
 	
-	@PutMapping("/assign/{centerId}/testId/{testId}")
-	public DiagnosticCenter assignCenter(@PathVariable String centerId,@PathVariable String testId)
+	@PutMapping("/remove-testid/{centerId}/test-id/{testId}")
+	public boolean removeTestId(@PathVariable String centerId,@PathVariable String testId)
 	{
-		return centerService.assignCenter(centerId, testId);
+		return centerService.removeTestId(centerId, testId);
 	}
 	
-	@PutMapping("/removeId/{centerId}/testId/{testId}")
-	public boolean removeCenterId(@PathVariable String centerId,@PathVariable String testId)
-	{
-		return centerService.removeCenterId(centerId, testId);
-	}
-	
-	@PutMapping("/assign/{centerId}/appointmentId/{appointmentId}")
+	@PutMapping("/assign-appointmentid/{centerId}/appointment-id/{appointmentId}")
 	public DiagnosticCenter assignAppointment(@PathVariable String centerId,@PathVariable BigInteger appointmentId)
 	{
-		return centerService.assignAppointment(centerId, appointmentId);
+		return centerService.assignAppointmentId(centerId, appointmentId);
+	}
+	
+	@DeleteMapping("removeallcenters")
+	public String removeAllCenters() 
+	{
+		centerService.removeAllCenters();
+			return "All Center Removed";
 	}
 }

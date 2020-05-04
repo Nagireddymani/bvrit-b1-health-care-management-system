@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.capg.hcms.center_management_system.exception.CenterListIsEmptyException;
 import com.capg.hcms.center_management_system.exception.CenterNameAlreadyExistException;
 import com.capg.hcms.center_management_system.exception.CenterNotFoundException;
 
@@ -25,5 +26,12 @@ public class DiagnosticCenterErrorHandler {
 	public void handleCenterNotFoundException()
 	{
 	       //To Handle Center Not Found Exception	
+	}
+	
+	@ResponseStatus(code = HttpStatus.NOT_FOUND,reason = "CenterList is Empty ")
+	@ExceptionHandler(CenterListIsEmptyException.class)
+	public void handleCenterListIsEmptyException()
+	{
+	       //To Handle CenterList is Empty Exception	
 	}
 }
