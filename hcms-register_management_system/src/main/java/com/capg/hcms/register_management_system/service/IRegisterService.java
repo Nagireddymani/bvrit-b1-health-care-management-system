@@ -1,9 +1,16 @@
 package com.capg.hcms.register_management_system.service;
 
-import java.util.List;
+
 
 import com.capg.hcms.register_management_system.model.User;
 import com.capg.hcms.register_management_system.model.UserList;
+
+/*******************************************************************************************************************************
+-Author                   :    ManikantaReddy 
+-Created/Modified Date    :     
+-Description              :    
+
+*******************************************************************************************************************************/
 
 public interface IRegisterService {
 	
@@ -12,5 +19,9 @@ public interface IRegisterService {
 	User getUser(String userId);
 	
 	UserList getAllUsers();
+	
+	User validateUser(String userName,String userPassword); 
+	
+	boolean removeAllUsers();
 }
 

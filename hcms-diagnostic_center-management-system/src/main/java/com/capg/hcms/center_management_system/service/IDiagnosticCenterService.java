@@ -1,26 +1,33 @@
 package com.capg.hcms.center_management_system.service;
 
 import java.math.BigInteger;
-import java.util.List;
 
 import com.capg.hcms.center_management_system.model.DiagnosticCenter;
+import com.capg.hcms.center_management_system.model.DiagnosticCenterList;
+
+
+/*******************************************************************************************************************************
+-Author                   :     N.Mani Kanta Reddy
+-Created/Modified Date    :     01-05-2020
+-Description              :     DiagnosticCenterService Interface with services for DiagnosticCenter Management System
+
+*******************************************************************************************************************************/
 
 public interface IDiagnosticCenterService {
 
-	List<DiagnosticCenter> getAllCenters();
-	
+	DiagnosticCenterList getAllCenters();
+
 	DiagnosticCenter addCenter(DiagnosticCenter center);
 	
-	boolean removeCenter(DiagnosticCenter center);
-	
-	DiagnosticCenter getCenter(String centerId);
-	
-	DiagnosticCenter updateCenter(DiagnosticCenter center);
+	DiagnosticCenter getCenterById(String centerId);
     
-	DiagnosticCenter assignCenter(String centerId,String testId);
+	DiagnosticCenter assignTestId(String centerId,String testId);
 	
-	DiagnosticCenter assignAppointment(String centerId,BigInteger appointmentId);
+	DiagnosticCenter assignAppointmentId(String centerId,BigInteger appointmentId);
 	
-	boolean removeCenterId(String centerId,String testId);
+	boolean removeTestId(String centerId,String testId);
 	
+	boolean removeAllCenters();
+	
+	boolean removeCenter(DiagnosticCenter center);
 }

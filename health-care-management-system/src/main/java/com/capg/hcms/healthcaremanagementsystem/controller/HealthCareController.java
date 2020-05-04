@@ -8,6 +8,7 @@ import java.util.List;
 import javax.annotation.security.PermitAll;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,6 +31,7 @@ import com.capg.hcms.healthcaremanagementsystem.service.IHealthCareService;
 
 @RestController
 @RequestMapping("/hcms")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class HealthCareController {
 
 	@Autowired
@@ -38,20 +40,20 @@ public class HealthCareController {
 	@PostMapping("/addcenter")
 	public DiagnosticCenter addCenter(@RequestBody DiagnosticCenter center)
 	{
+		System.out.println(center);
 		return service.addCenter(center);
 	}
 	
-	@DeleteMapping("/removecenter")
-	public boolean removeCenter(@RequestBody DiagnosticCenter center)
+	@DeleteMapping("/removecenter/{centerId}")
+	public boolean removeCenter(@PathVariable String centerId)
 	{
-		System.out.println("inhealthcareController");
-		return service.removeCenter(center);
+		return service.removeCenter(centerId);
 	}
 	
-	@DeleteMapping("/removetest/{centerId}")
-	public boolean removeTest(@RequestBody DiagnosticTest test,@PathVariable String centerId) throws RestClientException, URISyntaxException
+	@DeleteMapping("/removetest/{centerId}/{testId}")
+	public boolean removeTest(@PathVariable String testId,@PathVariable String centerId) throws RestClientException, URISyntaxException
 	{
-		return service.removeTest(centerId,test);
+		return service.removeTest(centerId,testId);
 	}
 	
 	@PostMapping("/addtest/{centerId}")
@@ -101,4 +103,23 @@ public class HealthCareController {
 	{
 		  return service.getAllUsers();
 	}
+	
+	@GetMapping("/getappointment/{appointmentId}")
+	public Appointment getAppointmentById(@PathVariable BigInteger appointmentId)
+	{
+		return service.getAppointment(appointmentId);
+	}
+	
+	@GetMapping("/getalltestsby-centerid/{centerId}")
+	public DiagnosticTestList getAllTestsByCenterId(@PathVariable String centerId)
+	{
+		return service.getAllTestsByCenterId(centerId);
+	}
+	
+	@GetMapping("/getallappointmentsby-centerid/{centerId}")
+	public AppointmentList getAllAppointmentsByCenterId(@PathVariable String centerId)
+    {
+		return service.getAllAppointmentByCenterId(centerId);
+    }
+	
 }

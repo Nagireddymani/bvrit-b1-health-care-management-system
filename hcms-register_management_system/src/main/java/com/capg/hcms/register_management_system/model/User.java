@@ -6,6 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/*******************************************************************************************************************************
+-Author                   :    ManikantaReddy 
+-Created/Modified Date    :    22-04-2020 
+-Description              :    User Bean Class
+
+*******************************************************************************************************************************/
+
 @Entity
 @Table(name = "user_info")
 public class User {
@@ -16,7 +23,7 @@ public class User {
 	private String userPassword;
 	private BigInteger contactNumber;
 	private String userEmail;
-	private String userRole="USER";
+	private String userRole;
 	private Integer age;
 	private String gender;
 	
@@ -94,8 +101,6 @@ public class User {
 		return "User [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword
 				+ ", contactNumber=" + contactNumber + ", userEmail=" + userEmail + ", userRole=" + userRole + ", age="
 				+ age + ", gender=" + gender + "]";
-	}
-	
-	
+	}	
 	
 }

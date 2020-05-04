@@ -3,14 +3,18 @@ package com.capg.hcms.center_management_system.model;
 import java.math.BigInteger;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+/*******************************************************************************************************************************
+   -Author                   :     N.Mani Kanta Reddy
+   -Created/Modified Date    :     22-04-2020
+   -Description              :     DiagnosticCenter Bean Class
+ 
+ *******************************************************************************************************************************/
 
 @Entity
 @Table(name = "center_info")
@@ -29,7 +33,6 @@ public class DiagnosticCenter {
 		super();
 	}
 	
-
 	public DiagnosticCenter(String centerId, String centerName, List<String> tests,
 			List<BigInteger> appointments) {
 		super();
@@ -79,6 +82,5 @@ public class DiagnosticCenter {
 		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", testId=" + tests
 				+ ", appointmentId=" + appointments + "]";
 	}
-	
 	
 }

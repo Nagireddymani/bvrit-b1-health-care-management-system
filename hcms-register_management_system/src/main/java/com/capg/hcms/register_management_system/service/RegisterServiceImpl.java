@@ -1,6 +1,6 @@
 package com.capg.hcms.register_management_system.service;
 
-import java.util.List;
+
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +19,23 @@ public class RegisterServiceImpl implements IRegisterService{
 
 	@Autowired
 	private IRegisterRepository registerRepo;
+	@Autowired
+	private Random random;
 	
-	private Random random=new Random();
 	@Override
 	public User registerUser(User user) {
+		
 		user.setUserId(Integer.toString(random.nextInt(1000000)));
+		
 		if(registerRepo.getUserByUserName(user.getUserName())!=null)
 			throw new UserNameAlreadyExistException("User with Name "+user.getUserName()+" is Already Exist");
+		
 		if(registerRepo.getUserByContactNumber(user.getContactNumber())!=null)
 			throw new ContactNumberAlreadyExistException("User with ContactNumber "+user.getContactNumber()+" is Already Exist");
+		
 		if(registerRepo.getUserByUserEmail(user.getUserEmail())!=null)
 			throw new EmailAlreadyExistException("User with Email "+user.getUserEmail()+" is Already Exist");
+	
 		return registerRepo.save(user);
 	}
 
@@ -43,5 +49,19 @@ public class RegisterServiceImpl implements IRegisterService{
 	@Override
 	public UserList getAllUsers() {
 		return new UserList(registerRepo.findAll());
+	}
+
+	@Override
+	public User validateUser(String userName, String userPassword) {
+        User user=registerRepo.getUserByUserName(userName);
+		if( !(user.getUserName().equals(userName) && user.getUserPassword().equals(userPassword)))
+			throw new UserNotFoundException("User with UserName "+userName +" "+ userPassword +" Not Found");
+		return user;
+	}
+
+	@Override
+	public boolean removeAllUsers() {
+		registerRepo.deleteAll();
+		return true;
 	}
 }

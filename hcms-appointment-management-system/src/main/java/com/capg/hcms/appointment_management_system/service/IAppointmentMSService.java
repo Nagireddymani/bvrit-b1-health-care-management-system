@@ -14,4 +14,6 @@ public interface IAppointmentMSService {
 	AppointmentList getAllAppointments();
 	Appointment approveAppointment(Appointment appointment,boolean status);
 	Appointment updateAppointment(Appointment appointment);
+	boolean removeAppointmentById(BigInteger appointmentId);
+	boolean removeAllAppointments();
 }
