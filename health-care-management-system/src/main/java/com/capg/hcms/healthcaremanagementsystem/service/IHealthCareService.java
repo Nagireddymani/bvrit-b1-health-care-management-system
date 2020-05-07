@@ -38,6 +38,7 @@ public interface IHealthCareService {
 	User addUser(User user);
     UserList getAllUsers();
     User validateUser(String userName, String userPassword);
+    User getUserById(String userId);
     
     DiagnosticTestList getAllTestsByCenterId(String centerId);
     
