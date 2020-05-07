@@ -14,39 +14,67 @@ import com.capg.hcms.test_management_system.exception.TestNotFoundException;
 import com.capg.hcms.test_management_system.model.DiagnosticTest;
 import com.capg.hcms.test_management_system.repository.IDiagnosticTestRepo;
 
+/*******************************************************************************************************************************
+-Author                   :     
+-Created/Modified Date    :     
+-Description              :    
+
+*******************************************************************************************************************************/
+
 @Service
 public class DiagnosticTestServiceImpl implements IDiagnosticTestService{
 	
     @Autowired
-	IDiagnosticTestRepo repo;
-    Random random=new Random();
+	IDiagnosticTestRepo testRepo;
+    @Autowired
+    Random random;
     
     public DiagnosticTest addTest(DiagnosticTest test) {
-    	if(repo.existsById(test.getTestName())) {
-			throw new TestAlreadyExistException("["+test.getTestName()+"] already exists");
-		}
     	test.setTestId(Integer.toString(random.nextInt(10000000)).substring(0,5));
-		return repo.save(test);
+    	
+    	if(testRepo.existsById(test.getTestId())) {
+			throw new TestAlreadyExistException("["+test.getTestId()+"] already exists");
+		}
+    	
+		return testRepo.save(test);
 	}
     
 	public boolean removeTest(DiagnosticTest test) {
-		if(!repo.existsById(test.getTestId())) {
+		
+		if(!testRepo.existsById(test.getTestId())) {
 			throw new TestNotFoundException("["+test.getTestId()+"] is Not Found"); 
 		}
-	    repo.deleteById(test.getTestId());
+		
+		testRepo.deleteById(test.getTestId());
 	    
-	    return (!repo.existsById(test.getTestId()));
+	    return !testRepo.existsById(test.getTestId());
 	}
 	
-	public List<DiagnosticTest> getAlltest(){
-//		if(repo.findAll().isEmpty()) {
-//			throw new ListisEmptyException("List is empty");
-//		}
-		return repo.findAll();
+	public List<DiagnosticTest> getAllTests(){
+		
+		if(testRepo.findAll().isEmpty()) {
+			throw new ListisEmptyException("List is empty");
+		}
+		
+		return testRepo.findAll();
 	}
 
 	@Override
-	public DiagnosticTest getTest(String testId) {
-		return repo.getOne(testId);
+	public DiagnosticTest getTestById(String testId) {
+	
+		if(!testRepo.existsById(testId)) {
+			throw new TestNotFoundException("["+testId+"] is Not Found"); 
+		}
+		
+		return testRepo.getOne(testId);
+	
+	}
+
+	@Override
+	public boolean removeAllTests() {
+	
+		testRepo.deleteAll();
+		
+		return true;
 	}
 }

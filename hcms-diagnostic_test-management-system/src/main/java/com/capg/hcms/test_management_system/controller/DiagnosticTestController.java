@@ -18,6 +18,12 @@ import com.capg.hcms.test_management_system.model.DiagnosticTest;
 import com.capg.hcms.test_management_system.model.DiagnosticTestList;
 import com.capg.hcms.test_management_system.service.DiagnosticTestServiceImpl;
 
+/*******************************************************************************************************************************
+-Author                   :     
+-Created/Modified Date    :     
+-Description              :    
+
+*******************************************************************************************************************************/
 
 @RestController
 @RequestMapping("/test")
@@ -26,23 +32,29 @@ public class DiagnosticTestController {
 	@Autowired
 	DiagnosticTestServiceImpl service;
 	
-	@GetMapping("/getalltest")
-	public DiagnosticTestList getAlltests(){
-		return new DiagnosticTestList(service.getAlltest());
+	@GetMapping("/getalltests")
+	public DiagnosticTestList getAllTests(){
+		return new DiagnosticTestList(service.getAllTests());
 	}
-	@GetMapping("/get/id/{testId}")
+	@GetMapping("/gettest/test-id/{testId}")
 	public DiagnosticTest getTest(@PathVariable String testId){
-		return service.getTest(testId);
+		return service.getTestById(testId);
 	}
 	@PostMapping("/addtest")
-	public ResponseEntity<DiagnosticTest> addtest(@RequestBody DiagnosticTest test) {
+	public ResponseEntity<DiagnosticTest> addTest(@RequestBody DiagnosticTest test) {
 		return new ResponseEntity<DiagnosticTest>(service.addTest(test), HttpStatus.CREATED);
 	}
-	@DeleteMapping("/removetest/testId/{testId}")
-	public boolean removetest(@PathVariable String testId) {
+	
+	@DeleteMapping("/removetest/test-id/{testId}")
+	public boolean removeTest(@PathVariable String testId) {
 		DiagnosticTest test=getTest(testId);
 		return service.removeTest(test);
 	}
 	
+	@DeleteMapping("/removealltests")
+	public String removeAllTests() {
+		service.removeAllTests();
+		return "All Test Removed";
+	}
 	
 }

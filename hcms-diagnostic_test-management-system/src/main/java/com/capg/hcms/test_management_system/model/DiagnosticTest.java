@@ -4,6 +4,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
+/*******************************************************************************************************************************
+-Author                   :     
+-Created/Modified Date    :     
+-Description              :    
+
+*******************************************************************************************************************************/
+
 @Entity
 @Table(name = "test_info")
 public class DiagnosticTest {
@@ -42,7 +50,5 @@ public class DiagnosticTest {
 	public String toString() {
 		return "DiagnosticTest [testName=" + testName + ", testId=" + testId + "]";
 	}
-    
-    
-
+   
 }
