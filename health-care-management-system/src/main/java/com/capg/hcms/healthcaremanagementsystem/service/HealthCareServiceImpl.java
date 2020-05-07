@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.capg.hcms.healthcaremanagementsystem.model.Appointment;
 import com.capg.hcms.healthcaremanagementsystem.model.AppointmentList;
@@ -27,10 +30,16 @@ public class HealthCareServiceImpl implements IHealthCareService{
 	private RestTemplate restTemplate;
 	
 	@Override
-	public DiagnosticCenter addCenter(DiagnosticCenter center) {
-	
-		return restTemplate.postForObject("http://diagnostic-center-ms/center/addcenter",center,DiagnosticCenter.class);
-	
+	public DiagnosticCenter addCenter(DiagnosticCenter center) throws RestClientException, URISyntaxException {
+		//return restTemplate.postForEntity("http://diagnostic-center-ms/center/addcenter", center, DiagnosticCenter.class);
+		
+        DiagnosticCenter newcenter=restTemplate.postForObject("http://diagnostic-center-ms/center/addcenter",center,DiagnosticCenter.class);	
+        System.out.println(newcenter);
+        if(newcenter.getCenterId()==null)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		addTest(newcenter.getCenterId(),new DiagnosticTest("Blood Pressure",""));
+		addTest(newcenter.getCenterId(),new DiagnosticTest("Blood Sugar",""));
+		return newcenter;
 	}
 
 	@Override
@@ -49,18 +58,26 @@ public class HealthCareServiceImpl implements IHealthCareService{
 		{
 			removeAppointmentById(appointmentId);
 		}
-				
+		 		
 		restTemplate.delete("http://diagnostic-center-ms/center/removecenter/center-id/"+centerId);
 		return true;
 	}
- 
+    
 	@Override
 	public DiagnosticTest addTest(String centerId,DiagnosticTest test) throws RestClientException,URISyntaxException {
+	    
+		
+	    List<DiagnosticTest> testList=getAllTestsByCenterId(centerId).getTestList();
+	    
+		for(DiagnosticTest tests:testList)
+		{
+			if(test.getTestName().equals(tests.getTestName()))
+		    	throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+		}
 	    
 		DiagnosticTest newtest=restTemplate.postForObject("http://diagnostic-test-ms/test/addtest", test, DiagnosticTest.class);
 		
 		restTemplate.put(new URI("http://diagnostic-center-ms/center/assign-testid/"+centerId+"/test-id/"+newtest.getTestId()),null);
-		
 		return newtest;
 	}
 	
@@ -201,6 +218,11 @@ public class HealthCareServiceImpl implements IHealthCareService{
 		restTemplate.delete("http://appointment-ms/appointment/removeappointment-centerid/"+appointmentId);
 		
 		return true;
+	}
+
+	@Override
+	public User validateUser(String userName, String userPassword) {
+		return restTemplate.getForObject("http://register-ms/register/validateuser/username/"+userName+"/userpassword/"+userPassword, User.class);
 	}
 		
 }

@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.capg.hcms.center_management_system.exception.CenterListIsEmptyException;
 import com.capg.hcms.center_management_system.exception.CenterNameAlreadyExistException;
@@ -44,10 +46,17 @@ public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 		
 		center.setCenterId(Integer.toString(random.nextInt(10000000)).substring(0,5));
 		
+		try {
+			
 		if(centerRepo.getByCenterName(center.getCenterName())!=null) {
 			throw new CenterNameAlreadyExistException("Center with Name :" + center.getCenterName()+" is Already Exist");
-		}
 		
+		}
+		}
+		catch(CenterNameAlreadyExistException e)
+		{
+			throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED);
+		}
 		return centerRepo.save(center);
 	}
 

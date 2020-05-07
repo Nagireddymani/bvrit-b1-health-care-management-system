@@ -19,4 +19,5 @@ public interface IRegisterRepository extends JpaRepository<User, String> {
 	public User getUserByContactNumber(BigInteger contactNumber);
 	
 	public User getUserByUserEmail(String userEmail);
+	
 }

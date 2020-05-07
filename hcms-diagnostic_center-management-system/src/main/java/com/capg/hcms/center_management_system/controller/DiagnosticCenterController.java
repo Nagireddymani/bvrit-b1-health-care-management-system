@@ -42,24 +42,28 @@ public class DiagnosticCenterController {
 		return new ResponseEntity<DiagnosticCenterList>(centerList,HttpStatus.OK);
 			
 	}
-
+	
 	@GetMapping("/getcenter/center-id/{centerId}")
-	public ResponseEntity<DiagnosticCenter> getCenter(@PathVariable String centerId)
+	public DiagnosticCenter getCenter(@PathVariable String centerId)
 	{
-		return new ResponseEntity<DiagnosticCenter>(centerService.getCenterById(centerId),HttpStatus.FOUND);
+		return centerService.getCenterById(centerId);
 	}
 	
 	@PostMapping("/addcenter")
 	public ResponseEntity<DiagnosticCenter> addCenter(@RequestBody DiagnosticCenter center)
 	{
-		return new ResponseEntity<DiagnosticCenter>(centerService.addCenter(center),HttpStatus.CREATED); 
+		DiagnosticCenter newcenter=centerService.addCenter(center);
+		//if(newcenter!=null)
+	     	return new ResponseEntity<DiagnosticCenter>(center,HttpStatus.CREATED); 
+	     //return new ResponseEntity<DiagnosticCenter>(HttpStatus.ALREADY_REPORTED);
+	
 	}
 	
 	@DeleteMapping("/removecenter/center-id/{centerId}")
 	public String removeCenter(@PathVariable String centerId)
 	{
-		ResponseEntity<DiagnosticCenter> center=getCenter(centerId);
-		if(centerService.removeCenter(center.getBody()));
+		DiagnosticCenter center=getCenter(centerId);
+		if(centerService.removeCenter(center));
 		     return "Center Deleted Successfully";
 	}
 	

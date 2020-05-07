@@ -53,10 +53,23 @@ public class RegisterServiceImpl implements IRegisterService{
 
 	@Override
 	public User validateUser(String userName, String userPassword) {
-        User user=registerRepo.getUserByUserName(userName);
-		if( !(user.getUserName().equals(userName) && user.getUserPassword().equals(userPassword)))
-			throw new UserNotFoundException("User with UserName "+userName +" "+ userPassword +" Not Found");
-		return user;
+        
+		User user;
+		try {
+	       user=registerRepo.getUserByUserName(userName);
+        }
+        catch(NullPointerException e)
+        {
+        	throw new UserNotFoundException("Invalid UserName");
+        }
+		System.out.println(user);
+		System.out.println(user.getUserPassword());
+		System.out.println(userPassword);
+		System.out.println(user.getUserPassword().equals(userPassword));
+        if( user!=null  && user.getUserPassword().equals(userPassword))
+			return user;
+        else
+        	throw new UserNotFoundException("Invalid Password");
 	}
 
 	@Override

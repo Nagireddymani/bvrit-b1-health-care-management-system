@@ -4,6 +4,7 @@ import java.math.BigInteger;
 import java.net.URISyntaxException;
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestClientException;
 
 import com.capg.hcms.healthcaremanagementsystem.model.Appointment;
@@ -17,7 +18,7 @@ import com.capg.hcms.healthcaremanagementsystem.model.UserList;
 
 public interface IHealthCareService {
 
-	DiagnosticCenter addCenter(DiagnosticCenter center);
+	DiagnosticCenter addCenter(DiagnosticCenter center) throws RestClientException, URISyntaxException;
 	boolean removeCenter(String centerId);
 	DiagnosticCenterList getAllCenters();
 	DiagnosticCenter getCenterById(String centerId);
@@ -36,6 +37,7 @@ public interface IHealthCareService {
 	
 	User addUser(User user);
     UserList getAllUsers();
+    User validateUser(String userName, String userPassword);
     
     DiagnosticTestList getAllTestsByCenterId(String centerId);
     

@@ -8,6 +8,8 @@ import java.util.List;
 import javax.annotation.security.PermitAll;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,10 +40,9 @@ public class HealthCareController {
 	private IHealthCareService service;
 	
 	@PostMapping("/addcenter")
-	public DiagnosticCenter addCenter(@RequestBody DiagnosticCenter center)
+	public DiagnosticCenter  addCenter(@RequestBody DiagnosticCenter center) throws RestClientException, URISyntaxException
 	{
-		System.out.println(center);
-		return service.addCenter(center);
+		 return service.addCenter(center);
 	}
 	
 	@DeleteMapping("/removecenter/{centerId}")
@@ -78,6 +79,11 @@ public class HealthCareController {
 	public Appointment approveAppointment(@PathVariable BigInteger appointmentId,@PathVariable boolean status)
 	{
 		return service.approvementAppointment(appointmentId, status);
+	}
+	@GetMapping("/validateuser/{userName}/{userPassword}")
+	public User validateUser(@PathVariable String userName,@PathVariable String userPassword)
+	{
+		return service.validateUser(userName, userPassword);
 	}
 	
 	@GetMapping("/getallcenters")
@@ -121,5 +127,4 @@ public class HealthCareController {
     {
 		return service.getAllAppointmentByCenterId(centerId);
     }
-	
 }
