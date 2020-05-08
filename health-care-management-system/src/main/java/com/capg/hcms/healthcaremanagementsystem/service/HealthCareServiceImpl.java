@@ -34,7 +34,7 @@ public class HealthCareServiceImpl implements IHealthCareService{
 		//return restTemplate.postForEntity("http://diagnostic-center-ms/center/addcenter", center, DiagnosticCenter.class);
 		
         DiagnosticCenter newcenter=restTemplate.postForObject("http://diagnostic-center-ms/center/addcenter",center,DiagnosticCenter.class);	
-        System.out.println(newcenter);
+        
         if(newcenter.getCenterId()==null)
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		addTest(newcenter.getCenterId(),new DiagnosticTest("Blood Pressure",""));
@@ -110,8 +110,12 @@ public class HealthCareServiceImpl implements IHealthCareService{
     
 	@Override
 	public User addUser(User user) {
+		User newUser=restTemplate.postForObject("http://register-ms/register/adduser", user, User.class);
+	
+		if(newUser.getUserId()==null)
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
 		
-		return  restTemplate.postForObject("http://register-ms/register/adduser", user, User.class);
+		return  newUser;
 	
 	}
 
@@ -223,6 +227,12 @@ public class HealthCareServiceImpl implements IHealthCareService{
 	@Override
 	public User validateUser(String userName, String userPassword) {
 		return restTemplate.getForObject("http://register-ms/register/validateuser/username/"+userName+"/userpassword/"+userPassword, User.class);
+	}
+
+	@Override
+	public User getUserById(String userId) {
+		
+		return restTemplate.getForObject("http://register-ms/register/getuser/user-id/"+userId, User.class);
 	}
 		
 }
