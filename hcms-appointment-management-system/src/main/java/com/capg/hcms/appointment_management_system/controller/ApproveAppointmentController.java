@@ -46,10 +46,5 @@ public class ApproveAppointmentController {
 	    	 Appointment appointment=service.getAppointment(appointmentId);	  
 	    	 return service.approveAppointment(appointment, status);
 	     }
-			/*
-			 * public List<Appointment> approveAppointment(@PathVariable String centerId) {
-			 * 
-			 * DiagnosticCenter center=rt.getFor return
-			 * appointmentMSService.getAllAppointments(); }
-			 */
+			
 }

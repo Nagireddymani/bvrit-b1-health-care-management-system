@@ -71,12 +71,11 @@ public class DiagnosticCenter {
 	public List<BigInteger> getAppointments() {
 		return appointments;
 	}
-
-
-	public void setAppointment(List<BigInteger> appointment) {
+	
+	public void setAppointment(List<BigInteger> appointments) {
 		this.appointments = appointments;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "DiagnosticCenter [centerId=" + centerId + ", centerName=" + centerName + ", testId=" + tests

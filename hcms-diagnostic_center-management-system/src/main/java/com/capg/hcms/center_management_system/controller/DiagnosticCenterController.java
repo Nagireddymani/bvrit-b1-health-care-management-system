@@ -4,8 +4,6 @@ import java.math.BigInteger;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,13 +32,9 @@ public class DiagnosticCenterController {
 	private IDiagnosticCenterService centerService;
 	
 	@GetMapping("/getallcenters")
-	public ResponseEntity<DiagnosticCenterList> getAllCenters()
+	public DiagnosticCenterList getAllCenters()
 	{
-		DiagnosticCenterList centerList=centerService.getAllCenters();
-		if(centerList==null)
-	    	return new ResponseEntity<DiagnosticCenterList>(HttpStatus.NOT_FOUND);
-		return new ResponseEntity<DiagnosticCenterList>(centerList,HttpStatus.OK);
-			
+		 return centerService.getAllCenters();	
 	}
 	
 	@GetMapping("/getcenter/center-id/{centerId}")
@@ -50,21 +44,15 @@ public class DiagnosticCenterController {
 	}
 	
 	@PostMapping("/addcenter")
-	public ResponseEntity<DiagnosticCenter> addCenter(@RequestBody DiagnosticCenter center)
+	public DiagnosticCenter addCenter(@RequestBody DiagnosticCenter center)
 	{
-		DiagnosticCenter newcenter=centerService.addCenter(center);
-		//if(newcenter!=null)
-	     	return new ResponseEntity<DiagnosticCenter>(center,HttpStatus.CREATED); 
-	     //return new ResponseEntity<DiagnosticCenter>(HttpStatus.ALREADY_REPORTED);
-	
+	     	return centerService.addCenter(center); 
 	}
 	
 	@DeleteMapping("/removecenter/center-id/{centerId}")
-	public String removeCenter(@PathVariable String centerId)
+	public boolean removeCenter(@PathVariable String centerId)
 	{
-		DiagnosticCenter center=getCenter(centerId);
-		if(centerService.removeCenter(center));
-		     return "Center Deleted Successfully";
+		return centerService.removeCenter(getCenter(centerId));
 	}
 	
 	@PutMapping("/assign-testid/{centerId}/test-id/{testId}")

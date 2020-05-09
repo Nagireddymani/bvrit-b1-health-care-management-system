@@ -1,13 +1,11 @@
 package com.capg.hcms.center_management_system.service;
 
 import java.math.BigInteger;
-import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
+
 
 import com.capg.hcms.center_management_system.exception.CenterListIsEmptyException;
 import com.capg.hcms.center_management_system.exception.CenterNameAlreadyExistException;
@@ -31,6 +29,15 @@ public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 	@Autowired
     private Random random;
 	
+	/*******************************************************************************************************************************
+	-Function Name            :     getAllCenters
+	-Input Parameters         :     No Input
+	-Return Type              :     DiagnosticCenterList object
+	-Throws                   :     CenterListIsEmptyException
+	-Author                   :     N.ManikaataReddy
+	-Created/Modified Date    :     4-05-2020
+	-Description              :     getting all centers present in the Center Database
+	*******************************************************************************************************************************/
 	@Override
 	public DiagnosticCenterList getAllCenters() {
 		
@@ -40,26 +47,40 @@ public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 		
 		return new DiagnosticCenterList(centerRepo.findAll());
 	}
-
+	
+	
+	/*******************************************************************************************************************************
+	-Function Name            :     addCenter
+	-Input Parameters         :     Center Object
+	-Return Type              :     added Center object
+	-Throws                   :     CenterNameAlreadyExistException();
+	-Author                   :     N.ManikantaReddy
+	-Created/Modified Date    :     4-05-2020
+	-Description              :     adding Center to the Center Database Table using Spring Data
+	*******************************************************************************************************************************/
 	@Override
 	public DiagnosticCenter addCenter(DiagnosticCenter center) {
 		
 		center.setCenterId(Integer.toString(random.nextInt(10000000)).substring(0,5));
-		
-		try {
 			
 		if(centerRepo.getByCenterName(center.getCenterName())!=null) {
-			throw new CenterNameAlreadyExistException("Center with Name :" + center.getCenterName()+" is Already Exist");
+			throw new CenterNameAlreadyExistException("Center with Name"+center.getCenterName()+" Already Exist");
 		
-		}
-		}
-		catch(CenterNameAlreadyExistException e)
-		{
-			throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED);
-		}
+		}		
 		return centerRepo.save(center);
 	}
+	
+	
+	/*******************************************************************************************************************************
+	-Function Name            :     removeCenter
+	-Input Parameters         :     Center Object
+	-Return Type              :     boolean
+	-Throws                   :     CenterNotFoundException
+	-Author                   :     N.ManikantaReddy
+	-Created/Modified Date    :     4-05-2020
+	-Description              :     removing Specified Center from Center DataBase Table.
 
+	*******************************************************************************************************************************/
 	@Override
 	public boolean removeCenter(DiagnosticCenter center) {
 		
@@ -70,7 +91,17 @@ public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 		
 		return !centerRepo.existsById(center.getCenterId());
 	}
-
+	
+	
+	/*******************************************************************************************************************************
+	-Function Name            :     getCenterById
+	-Input Parameters         :     centerId (String) 
+	-Return Type              :     DiagnosticCenter Object
+	-Throws                   :     CenterNotFoundException
+	-Author                   :     N.ManiKantaReddy
+	-Created/Modified Date    :     4-05-2020
+	-Description              :     getting Diagnostic Center based on centerId from Center DataBase Table
+	*******************************************************************************************************************************/
 	@Override
 	public DiagnosticCenter getCenterById(String centerId) {
 	
@@ -80,6 +111,15 @@ public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 		return centerRepo.getOne(centerId);
 	}
 	
+	/*******************************************************************************************************************************
+	-Function Name            :     assignTestId
+	-Input Parameters         :     centerId(String), testId(String)
+	-Return Type              :     updated DiagnosticCenter Object
+	-Throws                   :     NoException
+	-Author                   :     N.ManiKantaReddy
+	-Created/Modified Date    :     4-05-2020
+	-Description              :     adding testId Into tests Property of DiagnosticCenter of particular centerId
+	*******************************************************************************************************************************/
 	@Override
 	public DiagnosticCenter assignTestId(String centerId, String testId) {
 		
@@ -89,7 +129,16 @@ public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 		
 		return centerRepo.save(center);
 	}
-
+	
+	/*******************************************************************************************************************************
+	-Function Name            :     assignAppointmentId
+	-Input Parameters         :     centerId(String), appointmentId(BigInteger)
+	-Return Type              :     updated DiagnosticCenter Object
+	-Throws                   :     NoException
+	-Author                   :     N.ManikantaReddy
+	-Created/Modified Date    :     4-05-2020
+	-Description              :     adding appointmentId Into appointments Property of DiagnosticCenter of particular centerId
+	*******************************************************************************************************************************/
 	@Override
 	public DiagnosticCenter assignAppointmentId(String centerId, BigInteger appointmentId) {
 		
@@ -99,7 +148,18 @@ public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 		
 		return centerRepo.save(center);
 	}
-
+	
+	
+	/*******************************************************************************************************************************
+	-Function Name            :     removetTestId
+	-Input Parameters         :     centerId(String), testId(String) 
+	-Return Type              :     boolean
+	-Throws                   :     NoException
+	-Author                   :     N.ManikantaReddy
+	-Created/Modified Date    :     4-05-2020
+	-Description              :     removing testId from tests Property of DiagnosticCenter of particular centerId.
+	                                (This Method is done in parallel while removing Test from DiagonisticTest Database Table
+	*******************************************************************************************************************************/
 	@Override
 	public boolean removeTestId(String centerId, String testId) {
 		
@@ -111,7 +171,18 @@ public class DiagnosticCenterServiceImpl implements IDiagnosticCenterService {
 		
 		return true;
 	}
-
+	
+	
+	/*******************************************************************************************************************************
+	-Function Name            :     removeAllCenters
+	-Input Parameters         :     No Input
+	-Return Type              :     boolean
+	-Throws                   :     NoException
+	-Author                   :     N.ManikantaReddy
+	-Created/Modified Date    :     4-05-2020
+	-Description              :     removing all diagnosticCenters from Center Database.
+	                                (It is not required according to CaseStudy)
+	*******************************************************************************************************************************/
 	@Override
 	public boolean removeAllCenters() {
 		

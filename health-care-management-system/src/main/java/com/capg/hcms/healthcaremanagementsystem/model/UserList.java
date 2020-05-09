@@ -4,28 +4,28 @@ import java.util.List;
 
 public class UserList {
 
-	private List<User> userList;
+	private List<User> usersList;
 
 	public UserList() {
 		super();
 	}
 
-	public List<User> getUserList() {
-		return userList;
+	public List<User> getUsersList() {
+		return usersList;
 	}
 
-	public void setUserList(List<User> userList) {
-		this.userList = userList;
+	public void setUserList(List<User> usersList) {
+		this.usersList = usersList;
 	}
 
-	public UserList(List<User> userList) {
+	public UserList(List<User> usersList) {
 		super();
-		this.userList = userList;
+		this.usersList = usersList;
 	}
     
 	@Override
 	public String toString() {
-		return "UserList [userList=" + userList + "]";
+		return "UserList [usersList=" + usersList + "]";
 	}
 	
 }

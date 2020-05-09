@@ -1,6 +1,7 @@
 package com.capg.hcms.center_management_system.controller;
 
 import org.springframework.http.HttpStatus;
+
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -9,6 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.capg.hcms.center_management_system.exception.CenterListIsEmptyException;
 import com.capg.hcms.center_management_system.exception.CenterNameAlreadyExistException;
 import com.capg.hcms.center_management_system.exception.CenterNotFoundException;
+
+/*******************************************************************************************************************************
+-Author                   :     N.Mani Kanta Reddy
+-Created/Modified Date    :     01-05-2020
+-Description              :     DiagnosticCenterErrorController Class for handling DiagnosticCenter Management System Exceptions
+
+*******************************************************************************************************************************/
 
 @RestController
 @ControllerAdvice

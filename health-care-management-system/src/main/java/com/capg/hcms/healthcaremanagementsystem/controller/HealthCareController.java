@@ -85,6 +85,7 @@ public class HealthCareController {
 	{
 		return service.validateUser(userName, userPassword);
 	}
+	
 	@GetMapping("/getuser/{userId}")
 	public User getUserId(@PathVariable String userId)
 	{

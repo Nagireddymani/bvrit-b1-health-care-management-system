@@ -27,7 +27,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 	public Appointment makeAppointment(Appointment appointment) {
 		if(appointmentRepo.getAppointmentByDateTime(appointment.getDateTime())!=null)
 			throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED);
-		System.out.println(appointment);
+		
 		return appointmentRepo.save(appointment); 	
 	}
 	
@@ -52,14 +52,11 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
  		{
  		  throw new AppointmentAlreadyApprovedException("Appointment with Id :"+appointment.getAppointmentId()+" is Already Approved");
  		}
+ 		
 		appointment.setApproved(status);
  		return appointmentRepo.save(appointment);
 	}
 
-	@Override
-	public Appointment updateAppointment(Appointment appointment) {
-		return null;
-	}
 
 	@Override
 	public boolean removeAppointmentById(BigInteger appointmentId) {
