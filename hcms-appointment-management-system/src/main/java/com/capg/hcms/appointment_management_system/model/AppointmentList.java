@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AppointmentList {
 
-	private List<Appointment> appointmentList;
+	private List<Appointment> appointmentsList;
 
 	public AppointmentList() {
 		super();
@@ -20,20 +20,20 @@ public class AppointmentList {
 
 	public AppointmentList(List<Appointment> appointmentList) {
 		super();
-		this.appointmentList = appointmentList;
+		this.appointmentsList = appointmentList;
 	}
 
 	public List<Appointment> getAppointmentList() {
-		return appointmentList;
+		return appointmentsList;
 	}
 
 	public void setAppointmentList(List<Appointment> appointmentList) {
-		this.appointmentList = appointmentList;
+		this.appointmentsList = appointmentList;
 	}
 
 	@Override
 	public String toString() {
-		return "AppointmentList [appointmentList=" + appointmentList + "]";
+		return "AppointmentList [appointmentList=" + appointmentsList + "]";
 	}
 	
 	

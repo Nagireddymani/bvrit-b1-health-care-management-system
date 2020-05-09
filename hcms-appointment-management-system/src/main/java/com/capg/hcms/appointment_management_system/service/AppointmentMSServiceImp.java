@@ -71,7 +71,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 	@Override
 	public AppointmentList getAllAppointments() {
 
-		if (appointmentRepo.findAll() == null) {
+		if (appointmentRepo.findAll().isEmpty()) {
 			throw new AppointmentNotFoundException("Appointment list is empty");
 		}
 		return new AppointmentList(appointmentRepo.findAll());
