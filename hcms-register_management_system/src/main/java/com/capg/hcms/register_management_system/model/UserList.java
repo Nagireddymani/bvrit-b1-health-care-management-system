@@ -11,28 +11,28 @@ import java.util.List;
 
 public class UserList {
 
-	private List<User> userList;
+	private List<User> usersList;
 
 	public UserList() {
 		super();
 	}
 
-	public List<User> getUserList() {
-		return userList;
+	public List<User> getUsersList() {
+		return usersList;
 	}
 
-	public void setUserList(List<User> userList) {
-		this.userList = userList;
+	public void setUsersList(List<User> usersList) {
+		this.usersList = usersList;
 	}
 
 	public UserList(List<User> userList) {
 		super();
-		this.userList = userList;
+		this.usersList = userList;
 	}
     
 	@Override
 	public String toString() {
-		return "UserList [userList=" + userList + "]";
+		return "UsersList [userList=" + usersList + "]";
 	}
 	
 }

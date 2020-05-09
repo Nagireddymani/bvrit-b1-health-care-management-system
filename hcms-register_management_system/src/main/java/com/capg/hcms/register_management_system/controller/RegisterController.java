@@ -3,8 +3,6 @@ package com.capg.hcms.register_management_system.controller;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,9 +29,9 @@ public class RegisterController {
 	}
 	
 	@GetMapping("/getuser/user-id/{userId}")
-	public ResponseEntity<User> getUser(@PathVariable String userId)
+	public User getUser(@PathVariable String userId)
 	{
-		return new ResponseEntity<User>(registerService.getUser(userId),HttpStatus.OK);
+		return registerService.getUser(userId);
 	}
 	
 	@GetMapping("/getallusers")

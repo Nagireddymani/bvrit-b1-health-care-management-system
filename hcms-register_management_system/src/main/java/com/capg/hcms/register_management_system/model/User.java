@@ -45,6 +45,18 @@ public class User {
 	}
     
 	
+	public User(String userName, String userPassword, BigInteger contactNumber, String userEmail, String userRole,
+			Integer age, String gender) {
+		super();
+		this.userName = userName;
+		this.userPassword = userPassword;
+		this.contactNumber = contactNumber;
+		this.userEmail = userEmail;
+		this.userRole = userRole;
+		this.age = age;
+		this.gender = gender;
+	}
+
 	public String getUserRole() {
 		return userRole;
 	}
