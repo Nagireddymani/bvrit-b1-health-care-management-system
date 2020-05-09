@@ -19,9 +19,9 @@ import com.capg.hcms.test_management_system.model.DiagnosticTestList;
 import com.capg.hcms.test_management_system.service.DiagnosticTestServiceImpl;
 
 /*******************************************************************************************************************************
--Author                   :     
--Created/Modified Date    :     
--Description              :    
+-Author                   :     Ashritha
+-Created/Modified Date    :     4-05-2020
+-Description              :     DiagnosticTestController Class for accessing DiagnosticTest Management System services
 
 *******************************************************************************************************************************/
 

@@ -10,6 +10,12 @@ import com.capg.hcms.test_management_system.exception.ListisEmptyException;
 import com.capg.hcms.test_management_system.exception.TestAlreadyExistException;
 import com.capg.hcms.test_management_system.exception.TestNotFoundException;
 
+/*******************************************************************************************************************************
+-Author                   :     Ashritha
+-Created/Modified Date    :     1/05/2020
+-Description              :     DiagnosticTest Error controller class
+*******************************************************************************************************************************/
+
 @ControllerAdvice
 @RestController
 public class DiagnosticTestErrorController {

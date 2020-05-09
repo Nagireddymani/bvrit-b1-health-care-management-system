@@ -3,9 +3,9 @@ package com.capg.hcms.test_management_system.model;
 import java.util.List;
 
 /*******************************************************************************************************************************
--Author                   :     
--Created/Modified Date    :     
--Description              :    
+-Author                   :     Ashritha
+-Created/Modified Date    :     22-04-2020
+-Description              :     DiagnosticTestList is used to display list of tests.
 
 *******************************************************************************************************************************/
 

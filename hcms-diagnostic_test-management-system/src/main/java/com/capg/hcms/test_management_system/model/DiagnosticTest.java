@@ -6,10 +6,9 @@ import javax.persistence.Table;
 
 
 /*******************************************************************************************************************************
--Author                   :     
--Created/Modified Date    :     
--Description              :    
-
+-Author                   :     Ashritha
+-Created/Modified Date    :     22-04-2020
+-Description              :     DiagnosticTest Bean class
 *******************************************************************************************************************************/
 
 @Entity
