@@ -31,7 +31,7 @@ class HcmsAppointmentMsApplicationTests {
 	@BeforeEach
 	public void setUp() {
 
-		appointment = new Appointment("120", BigInteger.valueOf(0), "23", LocalDateTime.of(2020, 5, 24, 9, 30), false);
+		appointment = new Appointment("120", BigInteger.valueOf(0), "23", LocalDateTime.of(2020, 5, 19, 9, 30), false);
 		
 	}
 
