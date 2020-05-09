@@ -3,15 +3,17 @@ package com.capg.hcms.appointment_management_system.exceptions;
 /*******************************************************************************************************************************
 -Author                   :     Rishita Kalidindi
 -Created/Modified Date    :     27-04-2020
--Description              :     AppointmentNotFoundException class to handle runtime exception
+-Description              :     SlotNotAvailable class to handle runtime exception
 *******************************************************************************************************************************/
 
-public class AppointmentNotFoundException extends RuntimeException {
-
-
-	public AppointmentNotFoundException(String message) {
-		super(message);
-	}
-
+public class SlotNotAvailableException extends RuntimeException {
 	
+	
+
+	public SlotNotAvailableException(String message) {
+		super( message);
+		
+	}
+	
+
 }

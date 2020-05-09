@@ -2,19 +2,27 @@ package com.capg.hcms.appointment_management_system.model;
 
 
 import java.math.BigInteger;
+
 import java.time.LocalDateTime;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
 import org.springframework.format.annotation.DateTimeFormat;
+
+/*******************************************************************************************************************************
+-Author                   :     Boola Rohan, Rishita Kalidindi
+-Created/Modified Date    :     22-04-2020
+-Description              :     Appointment Bean Class
+
+*******************************************************************************************************************************/
 
 @Entity
 @Table(name = "appointment_info")
 public class Appointment {
 
+	
 	private String userId;
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
