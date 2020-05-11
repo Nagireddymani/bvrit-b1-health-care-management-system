@@ -44,7 +44,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 		LocalTime time=appointment.getDateTime().toLocalTime();
 		
 	    if (appointmentRepo.getAppointmentByDateTime(appointment.getDateTime()) != null || appointment.getDateTime().isBefore(LocalDateTime.now().plusHours(1))||
-				appointment.getDateTime().isAfter(LocalDateTime.now().plusMonths(3))||time.isBefore(LocalTime.of(7, 0))||time.isAfter(LocalTime.of(9, 30))) 
+	    	time.isBefore(LocalTime.of(6, 59))||time.isAfter(LocalTime.of(9, 30))) 
 	    {
 			throw new SlotNotAvailableException("This slot is not available");
 		}
@@ -58,7 +58,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 	-Throws                   :     AppointmentNotFoundException
 	-Author                   :     Rishita Kalidindi
 	-Created/Modified Date    :     4-05-2020
-	-Description              :     getting appointment based on appointmentId from appointment dataBase table
+	-Description              :     getting appointment based on appointmentId from appointment database table
 	*******************************************************************************************************************************/
 
 	@Override
