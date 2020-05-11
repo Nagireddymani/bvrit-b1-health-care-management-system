@@ -27,12 +27,17 @@ class HcmsAppointmentMsApplicationTests {
 	@Autowired
 	IAppointmentMSRepo appointmentRepo;
 	Appointment appointment;
+	Appointment appointment1;
+	Appointment appointment2;
+	
 
+	
 	@BeforeEach
 	public void setUp() {
 
-		appointment = new Appointment("120", BigInteger.valueOf(0), "23", LocalDateTime.of(2020, 5, 19, 9, 30), false);
-		
+		appointment = new Appointment("120", BigInteger.valueOf(0), "23", LocalDateTime.of(2020, 5, 27, 9, 30), false);
+		appointment1=new Appointment("230", BigInteger.valueOf(0), "12", LocalDateTime.of(2020, 5, 9, 9, 30), false);
+		appointment2=new Appointment("230", BigInteger.valueOf(0) , "12", LocalDateTime.of(2020,9 , 9, 11, 30), false);
 	}
 
 	@Test
@@ -50,6 +55,8 @@ class HcmsAppointmentMsApplicationTests {
 		assertThrows(SlotNotAvailableException.class, () -> {
 			service.makeAppointment(appointment);
 		});
+		assertThrows(SlotNotAvailableException.class, ()->{service.makeAppointment(appointment1);});
+		assertThrows(SlotNotAvailableException.class, ()->{service.makeAppointment(appointment2);});
 
 	}
 	

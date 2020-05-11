@@ -18,22 +18,22 @@ public class AppointmentList {
 		super();
 	}
 
-	public AppointmentList(List<Appointment> appointmentList) {
+	public AppointmentList(List<Appointment> appointmentsList) {
 		super();
-		this.appointmentsList = appointmentList;
+		this.appointmentsList = appointmentsList;
 	}
 
 	public List<Appointment> getAppointmentList() {
 		return appointmentsList;
 	}
 
-	public void setAppointmentList(List<Appointment> appointmentList) {
-		this.appointmentsList = appointmentList;
+	public void setAppointmentList(List<Appointment> appointmentsList) {
+		this.appointmentsList = appointmentsList;
 	}
 
 	@Override
 	public String toString() {
-		return "AppointmentList [appointmentList=" + appointmentsList + "]";
+		return "AppointmentList [appointmentsList=" + appointmentsList + "]";
 	}
 	
 	

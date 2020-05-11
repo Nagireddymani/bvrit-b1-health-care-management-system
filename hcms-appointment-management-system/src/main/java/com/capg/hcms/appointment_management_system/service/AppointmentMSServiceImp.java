@@ -2,9 +2,9 @@ package com.capg.hcms.appointment_management_system.service;
 
 import java.math.BigInteger;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import com.capg.hcms.appointment_management_system.exceptions.AppointmentAlreadyApprovedException;
@@ -40,12 +40,14 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 
 	@Override
 	public Appointment makeAppointment(Appointment appointment) {
-		if (appointmentRepo.getAppointmentByDateTime(appointment.getDateTime()) != null
-				|| appointment.getDateTime().isBefore(LocalDateTime.now())
-				|| appointment.getDateTime().isAfter(LocalDateTime.now().plusMonths(3))) {
+		
+		LocalTime time=appointment.getDateTime().toLocalTime();
+		
+	    if (appointmentRepo.getAppointmentByDateTime(appointment.getDateTime()) != null || appointment.getDateTime().isBefore(LocalDateTime.now().plusHours(1))||
+				appointment.getDateTime().isAfter(LocalDateTime.now().plusMonths(3))||time.isBefore(LocalTime.of(7, 0))||time.isAfter(LocalTime.of(9, 30))) 
+	    {
 			throw new SlotNotAvailableException("This slot is not available");
 		}
-
 		return appointmentRepo.save(appointment);
 	}
 	
@@ -54,7 +56,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 	-Input Parameters         :     BigInteger appointmentId 
 	-Return Type              :     Appointment Object
 	-Throws                   :     AppointmentNotFoundException
-	-Author                   :     Rishita Kalididni
+	-Author                   :     Rishita Kalidindi
 	-Created/Modified Date    :     4-05-2020
 	-Description              :     getting appointment based on appointmentId from appointment dataBase table
 	*******************************************************************************************************************************/
