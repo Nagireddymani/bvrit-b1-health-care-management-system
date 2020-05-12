@@ -44,7 +44,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 		LocalTime time=appointment.getDateTime().toLocalTime();
 		
 	    if (appointmentRepo.getAppointmentByDateTime(appointment.getDateTime()) != null || appointment.getDateTime().isBefore(LocalDateTime.now().plusHours(1))||
-	    	time.isBefore(LocalTime.of(6, 59))||time.isAfter(LocalTime.of(9, 30))) 
+	    	time.isBefore(LocalTime.of(6, 59))||time.isAfter(LocalTime.of(21, 30))) 
 	    {
 			throw new SlotNotAvailableException("This slot is not available");
 		}
@@ -69,6 +69,17 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 		}
 		return appointmentRepo.getOne(appointmentId);
 	}
+	
+	/*******************************************************************************************************************************
+	-Function Name            :     getAllAppointments
+	-Input Parameters         :     none
+	-Return Type              :     appointment list
+	-Throws                   :     AppointmentNotFoundException
+	-Author                   :     Boola Rohan
+	-Created/Modified Date    :     04-05-2020
+	-Description              :     getting all the appointments from the appointment database table 
+	*******************************************************************************************************************************/
+
 
 	@Override
 	public AppointmentList getAllAppointments() {
@@ -78,6 +89,17 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 		}
 		return new AppointmentList(appointmentRepo.findAll());
 	}
+	
+	/*******************************************************************************************************************************
+	-Function Name            :     approveAppointment
+	-Input Parameters         :     Appointment Object and status boolean variable 
+	-Return Type              :     appointment object
+	-Throws                   :     AppointmentAlreadyApprovedException
+	-Author                   :     Boola Rohan
+	-Created/Modified Date    :     04-05-2020
+	-Description              :     approves appointment and updates the appointment present in appointment database table 
+	*******************************************************************************************************************************/
+
 
 	@Override
 	public Appointment approveAppointment(Appointment appointment, boolean status) {
