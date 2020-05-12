@@ -43,7 +43,7 @@ class HcmsApproveAppointmentMsApplicationTestsTest {
 	  Assertions.assertThrows(LazyInitializationException.class, ()-> {
 		  
 	  approveAppointment.approveAppoinment(BigInteger.valueOf(1), true);
-	  } ); 
+      } ); 
 	  
 	  
 	  }

@@ -44,7 +44,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 		LocalTime time=appointment.getDateTime().toLocalTime();
 		
 	    if (appointmentRepo.getAppointmentByDateTime(appointment.getDateTime()) != null || appointment.getDateTime().isBefore(LocalDateTime.now().plusHours(1))||
-	    	time.isBefore(LocalTime.of(6, 59))||time.isAfter(LocalTime.of(21, 30))) 
+	    	time.isBefore(LocalTime.of(6, 59))||time.isAfter(LocalTime.of(21, 00))) 
 	    {
 			throw new SlotNotAvailableException("This slot is not available");
 		}
