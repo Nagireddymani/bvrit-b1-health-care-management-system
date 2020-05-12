@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.capg.hcms</groupId>
-	<artifactId>hcms-diagnostic_center-management-system</artifactId>
+	<artifactId>hcms-diagnostic_test-management-system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>hcms-diagnostic_center-management-system</name>
+	<name>hcms-diagnostic_test-management-system</name>
 	<description>Capgemini project for Health Care</description>
 
 	<properties>
