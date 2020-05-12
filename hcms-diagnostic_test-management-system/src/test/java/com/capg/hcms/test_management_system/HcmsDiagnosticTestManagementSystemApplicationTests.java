@@ -1,4 +1,4 @@
-package com.capg.hcms.center_management_system;
+package com.capg.hcms.test_management_system;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -15,7 +15,7 @@ import com.capg.hcms.test_management_system.repository.IDiagnosticTestRepo;
 import com.capg.hcms.test_management_system.service.DiagnosticTestServiceImpl;
 
 @SpringBootTest
-class HcmsDiagnosticCenterManagementSystemApplicationTests {
+class HcmsDiagnosticTestManagementSystemApplicationTests {
 	
 	@Autowired
 	IDiagnosticTestRepo testRepo;

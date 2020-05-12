@@ -87,6 +87,8 @@ public class DiagnosticTestServiceImpl implements IDiagnosticTestService{
 		
 		return testRepo.findAll();
 	}
+	
+	
 	/*******************************************************************************************************************************
 	-Function Name            :     getTestsById
 	-Input Parameters         :     testId
@@ -107,6 +109,7 @@ public class DiagnosticTestServiceImpl implements IDiagnosticTestService{
 		return testRepo.getOne(testId);
 	
 	}
+	
 
 	/*******************************************************************************************************************************
 	-Function Name            :     removeAllTests
@@ -117,6 +120,7 @@ public class DiagnosticTestServiceImpl implements IDiagnosticTestService{
 	-Created/Modified Date    :     4-05-2020
 	-Description              :     removing all tests from the database calls the method removeAllTests()
 	*******************************************************************************************************************************/
+	
 	@Override
 	public boolean removeAllTests() {
 	
