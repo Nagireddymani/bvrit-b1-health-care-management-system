@@ -44,16 +44,16 @@ class HcmsDiagnosticCenterManagementSystemApplicationTests {
 	{
 		List<String> tests=new ArrayList<String>();
 		List<BigInteger> appointments=new ArrayList<BigInteger>();		
-		center1=new DiagnosticCenter("","Rani's Clinic",tests,appointments);
+		center1=new DiagnosticCenter("","Nims Hostipals",tests,appointments);
 		center2=new DiagnosticCenter("76348","Rohan's CLinic",null,null);
-		center3=new DiagnosticCenter("88758","Vandana's Clinic",null,null);
+		center3=new DiagnosticCenter("27980","Elisa Diagnostic Center",null,null);
 	}
 	
 	@Test
 	public void testAddCenter()
 	{
 		service.addCenter(center1);
-		assertEquals(true,repo.getByCenterName("Rani's Clinic")!=null);
+		assertEquals(true,repo.getByCenterName("Nims Hostipals")!=null);
 	}
 	
 	@Test
