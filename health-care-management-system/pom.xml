@@ -14,7 +14,8 @@
 	<packaging>war</packaging>
 	<name>health-care-management-system</name>
 	<description>Health Care Managment System</description>
-
+        <!-- Jenkins Check -->
+	
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
