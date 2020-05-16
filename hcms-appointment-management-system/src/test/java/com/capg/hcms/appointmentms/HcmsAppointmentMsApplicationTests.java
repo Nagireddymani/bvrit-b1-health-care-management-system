@@ -17,12 +17,11 @@ import com.capg.hcms.appointment_management_system.HcmsAppointmentMsApplication;
 import com.capg.hcms.appointment_management_system.exceptions.AppointmentNotFoundException;
 import com.capg.hcms.appointment_management_system.exceptions.SlotNotAvailableException;
 import com.capg.hcms.appointment_management_system.model.Appointment;
-import com.capg.hcms.appointment_management_system.repository.IAppointmentMSRepo;
 import com.capg.hcms.appointment_management_system.service.AppointmentMSServiceImp;
 import com.capg.hcms.appointment_management_system.service.IAppointmentMSService;
 
 @SpringBootTest(classes = HcmsAppointmentMsApplication.class)
-@ContextConfiguration(classes = {AppointmentMSServiceImp.class})
+@ContextConfiguration(classes = {IAppointmentMSService.class})
 class HcmsAppointmentMsApplicationTests {
 
 	@Autowired
