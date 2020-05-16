@@ -15,6 +15,14 @@ import com.capg.hcms.appointment_management_system.controller.ApproveAppointment
 import com.capg.hcms.appointment_management_system.repository.IAppointmentMSRepo;
 import com.capg.hcms.appointment_management_system.service.AppointmentMSServiceImp;
 
+/*******************************************************************************************************************************
+-Author                   :     Boola Rohan
+-Created/Modified Date    :     08-05-2020
+-Description              :     JUnit TestCases for approve appointment Unit
+                                 in Appointment Mamagement System
+
+*******************************************************************************************************************************/
+
 @SpringBootTest(classes = HcmsAppointmentMsApplication.class)
 class HcmsApproveAppointmentMsApplicationTestsTest {
 
