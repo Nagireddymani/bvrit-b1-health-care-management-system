@@ -54,11 +54,6 @@ public class AppointmentMSController {
 		return  service.removeAppointmentById(appointmentId);
 	}
 	
-	@DeleteMapping("/removeallappointments")
-	public String removeAllAppointments()
-	{
-		service.removeAllAppointments();
-		return "All Appointments Removed";
-	}
+	
 	
 }

@@ -11,15 +11,18 @@ import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ContextConfiguration;
 
 import com.capg.hcms.appointment_management_system.HcmsAppointmentMsApplication;
 import com.capg.hcms.appointment_management_system.exceptions.AppointmentNotFoundException;
 import com.capg.hcms.appointment_management_system.exceptions.SlotNotAvailableException;
 import com.capg.hcms.appointment_management_system.model.Appointment;
 import com.capg.hcms.appointment_management_system.repository.IAppointmentMSRepo;
+import com.capg.hcms.appointment_management_system.service.AppointmentMSServiceImp;
 import com.capg.hcms.appointment_management_system.service.IAppointmentMSService;
 
 @SpringBootTest(classes = HcmsAppointmentMsApplication.class)
+@ContextConfiguration(classes = {IAppointmentMSRepo.class,AppointmentMSServiceImp.class})
 class HcmsAppointmentMsApplicationTests {
 
 	@Autowired
@@ -35,7 +38,7 @@ class HcmsAppointmentMsApplicationTests {
 	@BeforeEach
 	public void setUp() {
 
-		appointment = new Appointment("120", BigInteger.valueOf(0), "23", LocalDateTime.of(2020, 5, 27, 9, 30), false);
+		appointment = new Appointment("120", BigInteger.valueOf(0), "23", LocalDateTime.of(2020, 6, 20, 9, 30), false);
 		appointment1=new Appointment("230", BigInteger.valueOf(0), "12", LocalDateTime.of(2020, 5, 9, 9, 30), false);
 		appointment2=new Appointment("230", BigInteger.valueOf(0) , "12", LocalDateTime.of(2020,9 , 9, 11, 30), false);
 	}
@@ -52,9 +55,7 @@ class HcmsAppointmentMsApplicationTests {
 	@Test
 	public void testSlotNotAvailableException() {
 
-		assertThrows(SlotNotAvailableException.class, () -> {
-			service.makeAppointment(appointment);
-		});
+		assertThrows(SlotNotAvailableException.class, () -> {service.makeAppointment(appointment);});
 		assertThrows(SlotNotAvailableException.class, ()->{service.makeAppointment(appointment1);});
 		assertThrows(SlotNotAvailableException.class, ()->{service.makeAppointment(appointment2);});
 

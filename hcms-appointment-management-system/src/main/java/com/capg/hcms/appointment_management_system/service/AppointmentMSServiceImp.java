@@ -33,7 +33,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 	-Input Parameters         :     Appointment Object
 	-Return Type              :     appointment object
 	-Throws                   :     SlotNotAvailableException
-	-Author                   :     Rishita Kalididni
+	-Author                   :     Rishita Kalidindi
 	-Created/Modified Date    :     04-05-2020
 	-Description              :     adding appointment to the appointment database table 
 	*******************************************************************************************************************************/
@@ -42,9 +42,11 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 	public Appointment makeAppointment(Appointment appointment) {
 		
 		LocalTime time=appointment.getDateTime().toLocalTime();
+
 		
-	    if (appointmentRepo.getAppointmentByDateTime(appointment.getDateTime()) != null || appointment.getDateTime().isBefore(LocalDateTime.now().plusHours(1))||
-	    	time.isBefore(LocalTime.of(6, 59))||time.isAfter(LocalTime.of(21, 00))) 
+	    if ((appointmentRepo.getAppointmentByDateTimeAndTestId(appointment.getDateTime(), appointment.getTestId())!=null)
+	    	||appointment.getDateTime().isBefore(LocalDateTime.now().plusHours(1))||appointment.getDateTime().isAfter(LocalDateTime.now().plusMonths(3))
+	    	||time.isBefore(LocalTime.of(6, 59))||time.isAfter(LocalTime.of(21, 00))) 
 	    {
 			throw new SlotNotAvailableException("This slot is not available");
 		}
@@ -99,9 +101,7 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 	-Created/Modified Date    :     04-05-2020
 	-Description              :     approves appointment and updates the appointment present in appointment database table 
 	*******************************************************************************************************************************/
-
-
-	@Override
+    @Override
 	public Appointment approveAppointment(Appointment appointment, boolean status) {
 
 		if (appointment.isApproved()) {
@@ -112,17 +112,25 @@ public class AppointmentMSServiceImp implements IAppointmentMSService {
 		appointment.setApproved(status);
 		return appointmentRepo.save(appointment);
 	}
-
-	@Override
+    /*******************************************************************************************************************************
+	-Function Name            :     removeAppointmentById
+	-Input Parameters         :     BigInteger appointmentId  
+	-Return Type              :     boolean status
+	-Throws                   :     AppointmentAlreadyApprovedException
+	-Author                   :     Rishita Kalidindi
+	-Created/Modified Date    :     04-05-2020
+	-Description              :     deletes appointment that is stored under listOfAppointments in a Diagnostic center
+	*******************************************************************************************************************************/
+    @Override
 	public boolean removeAppointmentById(BigInteger appointmentId) {
+    	
+    	if(!appointmentRepo.existsById(appointmentId)) {
+    		throw new AppointmentNotFoundException("Appointment with id: "+appointmentId+" not found");
+    	}
 		appointmentRepo.deleteById(appointmentId);
 		return true;
 	}
 
-	@Override
-	public boolean removeAllAppointments() {
-		appointmentRepo.deleteAll();
-		return true;
-	}
+	
 
 }
