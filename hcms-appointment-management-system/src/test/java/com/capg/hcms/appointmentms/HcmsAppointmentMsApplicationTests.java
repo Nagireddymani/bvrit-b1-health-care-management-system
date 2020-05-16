@@ -22,13 +22,12 @@ import com.capg.hcms.appointment_management_system.service.AppointmentMSServiceI
 import com.capg.hcms.appointment_management_system.service.IAppointmentMSService;
 
 @SpringBootTest(classes = HcmsAppointmentMsApplication.class)
-@ContextConfiguration(classes = {IAppointmentMSRepo.class,AppointmentMSServiceImp.class})
+@ContextConfiguration(classes = {AppointmentMSServiceImp.class})
 class HcmsAppointmentMsApplicationTests {
 
 	@Autowired
 	IAppointmentMSService service;
-	@Autowired
-	IAppointmentMSRepo appointmentRepo;
+	
 	Appointment appointment;
 	Appointment appointment1;
 	Appointment appointment2;
