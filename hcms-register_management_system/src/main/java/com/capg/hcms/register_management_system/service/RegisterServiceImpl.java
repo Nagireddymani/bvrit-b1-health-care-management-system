@@ -61,24 +61,25 @@ public class RegisterServiceImpl implements IRegisterService{
 	@Override
 	public User validateUser(String userName, String userPassword) {
         
-		User user;
-		try {
-	       user=registerRepo.getUserByUserName(userName);
-        }
-        catch(NullPointerException e)
-        {
-        	throw new UserNotFoundException("Invalid UserName");
-        }
-	
-        if( user!=null  && user.getUserPassword().equals(userPassword))
-			return user;
-        else
-        	throw new UserNotFoundException("Invalid Password");
+	         User user=registerRepo.getUserByUserNameAndUserPassword(userName, userPassword);
+
+		 if(user==null)
+		 {
+			 throw new UserNotFoundException("Invalid UserName and Password");
+		 }
+		 
+		 return user;
 	}
 
 	@Override
 	public boolean removeAllUsers() {
 		registerRepo.deleteAll();
 		return registerRepo.findAll().isEmpty();
+	}
+	
+	@Override
+	public boolean removeUserById(String userId) {
+		registerRepo.deleteById(userId);
+		return true;
 	}
 }
