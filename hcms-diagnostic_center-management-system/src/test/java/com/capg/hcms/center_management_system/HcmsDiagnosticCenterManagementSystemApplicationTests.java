@@ -46,7 +46,7 @@ class HcmsDiagnosticCenterManagementSystemApplicationTests {
 		List<BigInteger> appointments=new ArrayList<BigInteger>();		
 		center1=new DiagnosticCenter("","Nims Hostipals",tests,appointments);
 		center2=new DiagnosticCenter("76348","Rohan's CLinic",null,null);
-		center3=new DiagnosticCenter("27980","Elisa Diagnostic Center",null,null);
+		center3=new DiagnosticCenter("71546","Elisa Diagnostic Center",null,null);
 	}
 	
 	@Test
