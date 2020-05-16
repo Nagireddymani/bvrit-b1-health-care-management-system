@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.capg.hcms.register_management_system.exception.ContactNumberAlreadyExistException;
 import com.capg.hcms.register_management_system.exception.EmailAlreadyExistException;
 import com.capg.hcms.register_management_system.exception.UserNameAlreadyExistException;
+import com.capg.hcms.register_management_system.exception.UserNotFoundException;
 import com.capg.hcms.register_management_system.model.User;
 import com.capg.hcms.register_management_system.repository.IRegisterRepository;
 import com.capg.hcms.register_management_system.service.IRegisterService;
