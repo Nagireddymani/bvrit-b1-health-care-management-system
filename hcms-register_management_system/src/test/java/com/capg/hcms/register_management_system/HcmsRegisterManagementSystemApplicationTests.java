@@ -29,22 +29,19 @@ class HcmsRegisterManagementSystemApplicationTests {
 	User user1;
 	User user2;
 	User user3;
-	User user4;
 	
 	@BeforeEach
 	public void init()
-	{
-	   user1=new User("","Dhanush"     ,"IloveIndia1",new BigInteger("9123456789"),"dhanush@gmail.com"     ,"ADMIN",47, "male");
-	   user2=new User("","SuryaPrakash","IloveIndia1",new BigInteger("9123456789"),"suryaprakash@gmail.com","ADMIN",47, "male");   
-	   user3=new User("","DhanushKoti" ,"IloveIndia1",new BigInteger("9999999999"),"krishna@gmail.com"     ,"ADMIN",47, "male");
-	   user4=new User("","Krishna"     ,"IloveIndia1",new BigInteger("9777777779"),"krishna@gmail.com"     ,"ADMIN",47, "male");
+	{	
+	   user1=new User("","Dhanush"     ,"IloveIndia1",new BigInteger("9123456789"),"dhanush@gmail.com"     ,"ADMIN",47, "male");   
+	   user2=new User("","Surya"     ,"IloveIndia1",new BigInteger("9797979797"),"surya@gmail.com"     ,"ADMIN",47, "male");
+	   user3=new User("","Rajesh"     ,"IloveIndia1",new BigInteger("9292929292"),"dhanush@gmail.com"     ,"ADMIN",47, "male");
 	}
 	
-//	@Test
-//	void testRegisterUser() {
-//		 service.registerUser(user4);
-//		 assertEquals(true,repo.getUserByUserName("Dhanush")!=null);
-//	}
+	@Test
+	void testRegisterUser() {
+		assertEquals(true,service.registerUser(user1)!=null);
+	}
 	
 	@Test
 	void testUserNameException()
@@ -52,8 +49,7 @@ class HcmsRegisterManagementSystemApplicationTests {
 	    Assertions.assertThrows(UserNameAlreadyExistException.class, ()->
 	    {
 	    	service.registerUser(user1);
-	    });
-	   		  
+	    });   		  
 	}
 	
 	@Test
@@ -62,18 +58,40 @@ class HcmsRegisterManagementSystemApplicationTests {
 	    Assertions.assertThrows(ContactNumberAlreadyExistException.class, ()->
 	    {
 	    	service.registerUser(user2);
+	    });		  
+	}
+	
+	@Test
+	void testEmailException()
+	{
+	    Assertions.assertThrows(EmailAlreadyExistException.class, ()->
+	    {
+	    	service.registerUser(user3);
 	    });
 	   		  
 	}
 	
-//	@Test
-//	void testEmailException()
-//	{
-//	    Assertions.assertThrows(EmailAlreadyExistException.class, ()->
-//	    {
-//	    	service.registerUser(user3);
-//	    });
-//	   		  
-//	}
+	@Test
+	void testValidateUser()
+	{
+		assertEquals(true,service.validateUser("BoolaRohan","BoolaRohan1@")!=null);
+	}
 	
+	@Test
+	void testValidateUserException()
+	{
+		Assertions.assertThrows(UserNotFoundException.class, ()->
+	    {
+	    	service.validateUser("BoolaRohan1","BoolaRohan1@");
+	    });
+	}
+	
+	@Test
+	void testValidateUserException1()
+	{
+		Assertions.assertThrows(UserNotFoundException.class, ()->
+	    {
+	    	service.validateUser("BoolaRohan","BoolaRohan@");
+	    });
+	}
 }
