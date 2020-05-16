@@ -52,4 +52,10 @@ public class RegisterController {
 		registerService.removeAllUsers();
 		return "All Users Removed";
 	}
+	
+	@DeleteMapping("/removeuser/{userId}")
+	public boolean removeUser(@PathVariable String userId)
+	{
+		return registerService.removeUserById(userId); 
+	}
 }
