@@ -21,7 +21,6 @@ import com.capg.hcms.appointment_management_system.service.AppointmentMSServiceI
 import com.capg.hcms.appointment_management_system.service.IAppointmentMSService;
 
 @SpringBootTest(classes = HcmsAppointmentMsApplication.class)
-@ContextConfiguration(classes = {IAppointmentMSService.class})
 class HcmsAppointmentMsApplicationTests {
 
 	@Autowired
