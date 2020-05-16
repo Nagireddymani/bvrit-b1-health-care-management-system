@@ -6,4 +6,8 @@ public class ContactNumberAlreadyExistException extends RuntimeException {
 	{
 		super(message);
 	}
+	public ContactNumberAlreadyExistException()
+	{
+		super();
+	}
 }
