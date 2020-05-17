@@ -13,7 +13,7 @@ package com.capg.hcms.appointmentms;
 import org.springframework.boot.test.context.SpringBootTest;
 //import org.springframework.test.context.ContextConfiguration;
 
-//import com.capg.hcms.appointment_management_system.HcmsAppointmentMsApplication;
+import com.capg.hcms.appointment_management_system.HcmsAppointmentMsApplication;
 //import com.capg.hcms.appointment_management_system.exceptions.AppointmentNotFoundException;
 //import com.capg.hcms.appointment_management_system.exceptions.SlotNotAvailableException;
 //import com.capg.hcms.appointment_management_system.model.Appointment;
